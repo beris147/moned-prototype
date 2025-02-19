@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import React from 'react';
 
 import './globals.css';
+import LogInButton from './(auth)/components/login-button';
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -29,6 +30,7 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
+				<LogInButton />
 				{children}
 			</body>
 		</html>
