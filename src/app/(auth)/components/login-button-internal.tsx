@@ -11,8 +11,8 @@ export default function LogInButtonInternal({
 	const handleLogin = () => {
 		redirect('/login');
 	};
-	const handleSignIn = () => {
-		redirect('/signin');
+	const handleSignUp = () => {
+		redirect('/signup');
 	};
 	const handleSignOut = async () => {
 		await logout();
@@ -24,7 +24,7 @@ export default function LogInButtonInternal({
 			{!isLoggedIn ? (
 				<>
 					<button onClick={handleLogin}>Log In</button>
-					<button onClick={handleSignIn}>Sign In</button>
+					<button onClick={handleSignUp}>Sign In</button>
 				</>
 			) : (
 				<button onClick={handleSignOut}>Log out</button>
