@@ -8,11 +8,13 @@ export default function SignupForm() {
 			<form>
 				<label htmlFor='email'>Email:</label>
 				<input id='email' name='email' type='email' required />
+				<br />
 				<label htmlFor='password'>Password:</label>
 				<input id='password' name='password' type='password' required />
+				<br />
 				<button formAction={signup}>Sign up</button>
-				<GoogleSignInButton />
 			</form>
+			<GoogleSignInButton />
 		</>
 	);
 }

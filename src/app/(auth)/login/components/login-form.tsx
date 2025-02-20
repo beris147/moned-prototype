@@ -7,12 +7,13 @@ export default function LoginForm() {
 		<>
 			<form>
 				<label htmlFor='email'>Email:</label>
-				<input id='email' name='email' type='email' required />
+				<input id='email' name='email' type='email' required /> <br />
 				<label htmlFor='password'>Password:</label>
 				<input id='password' name='password' type='password' required />
+				<br />
 				<button formAction={login}>Log in</button>
-				<GoogleSignInButton />
 			</form>
+			<GoogleSignInButton />
 		</>
 	);
 }

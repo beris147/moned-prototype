@@ -23,8 +23,8 @@ export default function LogInButtonInternal({
 		<>
 			{!isLoggedIn ? (
 				<>
-					<button onClick={handleLogin}>Log In</button>
-					<button onClick={handleSignUp}>Sign In</button>
+					<button onClick={handleLogin}>Log In</button>{' '}
+					<button onClick={handleSignUp}>Sign Up</button>
 				</>
 			) : (
 				<button onClick={handleSignOut}>Log out</button>

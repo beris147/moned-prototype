@@ -4,5 +4,10 @@ import LogInButtonInternal from './login-button-internal';
 
 export default async function LogInButton() {
 	const isLoggedIn = await isUserLoggedIn();
-	return <LogInButtonInternal isLoggedIn={isLoggedIn} />;
+	return (
+		<>
+			<LogInButtonInternal isLoggedIn={isLoggedIn} />
+			<br />
+		</>
+	);
 }
