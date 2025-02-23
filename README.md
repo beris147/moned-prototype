@@ -34,3 +34,26 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Local supabase
+
+Make sure to create a .env.local with the supabase details:
+
+NEXT_PUBLIC_SUPABASE_URL=<SUPABASE_URL>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<SUPABASE_ANON_KEY>
+NEXT_PUBLIC_GRAPHQL_API_URL=<SUPABASE_GRAPHQL_API>
+
+```bash
+# link the supabase project
+npx supabase link --project-ref <PROJECT_ID>
+# pull latest prod changes
+npx supabase db pull
+# sync local db with prod
+npx supabase db reset
+# start local instance
+npx supabase start
+
+# Undo changes
+npx supabase stop --no-backup
+npx supabase unlink
+```
