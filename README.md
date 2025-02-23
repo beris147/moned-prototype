@@ -57,3 +57,18 @@ npx supabase start
 npx supabase stop --no-backup
 npx supabase unlink
 ```
+
+## GraphQL Codegen
+
+Project needs to run codegen when there are changes in schemas, the only way I
+manage to make it work was with:
+
+1. Setup local instance of supabase, needs to be up to date to pull the schemas
+2. Write the graphql queries and mutations (use getSSRClient for SSR)
+3. Run graphql codegen
+
+```bash
+npm run codegen
+# or watch with
+npm run codegen-watch
+```

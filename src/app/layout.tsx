@@ -4,6 +4,7 @@ import React from 'react';
 
 import './globals.css';
 import LogInButton from './(auth)/components/login-button';
+import { ApolloWrapper } from '@/lib/apollo/wrapper';
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -30,8 +31,10 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<LogInButton />
-				{children}
+				<ApolloWrapper>
+					<LogInButton />
+					{children}
+				</ApolloWrapper>
 			</body>
 		</html>
 	);
