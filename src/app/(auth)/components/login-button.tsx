@@ -1,13 +1,13 @@
-import React from 'react';
-import { isUserLoggedIn } from '../utils';
-import LogInButtonInternal from './login-button-internal';
+import React from "react";
+import { isUserLoggedIn } from "../utils";
+import LogInButtonInternal from "./login-button-internal";
 
 export default async function LogInButton() {
-	const isLoggedIn = await isUserLoggedIn();
-	return (
-		<>
-			<LogInButtonInternal isLoggedIn={isLoggedIn} />
-			<br />
-		</>
-	);
+  const isLoggedIn = await isUserLoggedIn();
+  return (
+    <>
+      <LogInButtonInternal isLoggedIn={isLoggedIn} />
+      <br />
+    </>
+  );
 }

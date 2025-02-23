@@ -1,9 +1,9 @@
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-	experimental: {
-		reactCompiler: false,
-	},
+  experimental: {
+    reactCompiler: false,
+  },
 };
 
 export default nextConfig;

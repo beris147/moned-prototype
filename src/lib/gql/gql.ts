@@ -1,6 +1,6 @@
 /* eslint-disable */
-import * as types from './graphql';
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import * as types from "./graphql";
+import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 
 /**
  * Map of all GraphQL operations in the project.
@@ -14,10 +14,11 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n\tquery UserProfile($id: UUID) {\n\t\tpatientCollection(filter: { id: { eq: $id } }) {\n\t\t\tedges {\n\t\t\t\tpatient: node {\n\t\t\t\t\tfull_name\n\t\t\t\t\temail\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n": typeof types.UserProfileDocument,
+  "\n\tquery UserProfile($id: UUID) {\n\t\tpatientCollection(filter: { id: { eq: $id } }) {\n\t\t\tedges {\n\t\t\t\tpatient: node {\n\t\t\t\t\tfull_name\n\t\t\t\t\temail\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n": typeof types.UserProfileDocument;
 };
 const documents: Documents = {
-    "\n\tquery UserProfile($id: UUID) {\n\t\tpatientCollection(filter: { id: { eq: $id } }) {\n\t\t\tedges {\n\t\t\t\tpatient: node {\n\t\t\t\t\tfull_name\n\t\t\t\t\temail\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n": types.UserProfileDocument,
+  "\n\tquery UserProfile($id: UUID) {\n\t\tpatientCollection(filter: { id: { eq: $id } }) {\n\t\t\tedges {\n\t\t\t\tpatient: node {\n\t\t\t\t\tfull_name\n\t\t\t\t\temail\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n":
+    types.UserProfileDocument,
 };
 
 /**
@@ -37,10 +38,13 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n\tquery UserProfile($id: UUID) {\n\t\tpatientCollection(filter: { id: { eq: $id } }) {\n\t\t\tedges {\n\t\t\t\tpatient: node {\n\t\t\t\t\tfull_name\n\t\t\t\t\temail\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery UserProfile($id: UUID) {\n\t\tpatientCollection(filter: { id: { eq: $id } }) {\n\t\t\tedges {\n\t\t\t\tpatient: node {\n\t\t\t\t\tfull_name\n\t\t\t\t\temail\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"];
+export function graphql(
+  source: "\n\tquery UserProfile($id: UUID) {\n\t\tpatientCollection(filter: { id: { eq: $id } }) {\n\t\t\tedges {\n\t\t\t\tpatient: node {\n\t\t\t\t\tfull_name\n\t\t\t\t\temail\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n",
+): (typeof documents)["\n\tquery UserProfile($id: UUID) {\n\t\tpatientCollection(filter: { id: { eq: $id } }) {\n\t\t\tedges {\n\t\t\t\tpatient: node {\n\t\t\t\t\tfull_name\n\t\t\t\t\temail\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
+  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;
