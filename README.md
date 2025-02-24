@@ -1,8 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+First, first you need to setup the proper .env file:
+
+```
+# local supabase
+NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<ANON_KEY>
+NEXT_PUBLIC_GRAPHQL_API_URL=http://localhost:54321/graphql/v1
+## Google auth
+SUPABASE_AUTH_GOOGLE_CLIENT_ID=<GOOGLE_CLIENT_ID>
+SUPABASE_AUTH_GOOGLE_SECRET=<GOOGLE_SECRET>
+SUPABASE_AUTH_GOOGLE_CALLBACK=http://localhost:54321/auth/v1/callback
+```
+
+Then, run supabase:
+
+```bash
+npx supabase start
+```
+
+Now you can run the project locally:
 
 ```bash
 npm run dev
