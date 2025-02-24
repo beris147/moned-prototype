@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { getSSRClient } from "@/lib/apollo/ssr-client";
-import { graphql } from "@/lib/gql/gql";
-import { redirect } from "next/navigation";
+import { getSSRClient } from '@/lib/apollo/ssr-client';
+import { graphql } from '@/lib/gql/gql';
+import { redirect } from 'next/navigation';
 
 const query = graphql(`
   query UserProfile($id: UUID) {
@@ -29,7 +29,7 @@ export default async function ProfileView({ userID }: { userID: string }) {
     return <>Loading...</>;
   }
   if (error) {
-    redirect("/error");
+    redirect('/error');
   }
   const patient = data.patientCollection?.edges.at(0)?.patient;
   return (

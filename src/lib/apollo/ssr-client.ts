@@ -1,7 +1,7 @@
-import { HttpLink, InMemoryCache, ApolloClient } from "@apollo/client";
-import { registerApolloClient } from "@apollo/experimental-nextjs-app-support";
-import { setContext } from "@apollo/client/link/context";
-import { createClient } from "@/utils/supabase/server";
+import { HttpLink, InMemoryCache, ApolloClient } from '@apollo/client';
+import { registerApolloClient } from '@apollo/experimental-nextjs-app-support';
+import { setContext } from '@apollo/client/link/context';
+import { createClient } from '@/utils/supabase/server';
 
 // this is only for SSR
 export const { getClient: getSSRClient } = registerApolloClient(async () => {
@@ -15,7 +15,7 @@ export const { getClient: getSSRClient } = registerApolloClient(async () => {
       headers: {
         ...headers,
         apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-        Authorization: token ? `Bearer ${token}` : "",
+        Authorization: token ? `Bearer ${token}` : '',
       },
     };
   });

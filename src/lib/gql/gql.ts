@@ -1,6 +1,6 @@
 /* eslint-disable */
-import * as types from "./graphql";
-import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
+import * as types from './graphql';
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
 /**
  * Map of all GraphQL operations in the project.
@@ -14,10 +14,10 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-  "\n  query UserProfile($id: UUID) {\n    patientCollection(filter: { id: { eq: $id } }) {\n      edges {\n        patient: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n": typeof types.UserProfileDocument;
+  '\n  query UserProfile($id: UUID) {\n    patientCollection(filter: { id: { eq: $id } }) {\n      edges {\n        patient: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n': typeof types.UserProfileDocument;
 };
 const documents: Documents = {
-  "\n  query UserProfile($id: UUID) {\n    patientCollection(filter: { id: { eq: $id } }) {\n      edges {\n        patient: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n":
+  '\n  query UserProfile($id: UUID) {\n    patientCollection(filter: { id: { eq: $id } }) {\n      edges {\n        patient: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n':
     types.UserProfileDocument,
 };
 
@@ -39,8 +39,8 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  query UserProfile($id: UUID) {\n    patientCollection(filter: { id: { eq: $id } }) {\n      edges {\n        patient: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n",
-): (typeof documents)["\n  query UserProfile($id: UUID) {\n    patientCollection(filter: { id: { eq: $id } }) {\n      edges {\n        patient: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n"];
+  source: '\n  query UserProfile($id: UUID) {\n    patientCollection(filter: { id: { eq: $id } }) {\n      edges {\n        patient: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n'
+): (typeof documents)['\n  query UserProfile($id: UUID) {\n    patientCollection(filter: { id: { eq: $id } }) {\n      edges {\n        patient: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n'];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

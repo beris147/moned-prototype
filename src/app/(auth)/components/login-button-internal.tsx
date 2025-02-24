@@ -1,7 +1,7 @@
-"use client";
-import { redirect } from "next/navigation";
-import React from "react";
-import { logout } from "../actions";
+'use client';
+import { redirect } from 'next/navigation';
+import React from 'react';
+import { logout } from '../actions';
 
 export default function LogInButtonInternal({
   isLoggedIn,
@@ -9,21 +9,21 @@ export default function LogInButtonInternal({
   isLoggedIn: boolean;
 }) {
   const handleLogin = () => {
-    redirect("/login");
+    redirect('/login');
   };
   const handleSignUp = () => {
-    redirect("/signup");
+    redirect('/signup');
   };
   const handleSignOut = async () => {
     await logout();
-    redirect("/");
+    redirect('/');
   };
 
   return (
     <>
       {!isLoggedIn ? (
         <>
-          <button onClick={handleLogin}>Log In</button>{" "}
+          <button onClick={handleLogin}>Log In</button>{' '}
           <button onClick={handleSignUp}>Sign Up</button>
         </>
       ) : (

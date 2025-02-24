@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { ApolloLink, HttpLink } from "@apollo/client";
+import { ApolloLink, HttpLink } from '@apollo/client';
 import {
   ApolloClient,
   ApolloNextAppProvider,
   InMemoryCache,
   SSRMultipartLink,
-} from "@apollo/experimental-nextjs-app-support";
-import { setContext } from "@apollo/client/link/context";
-import { createClient } from "@/utils/supabase";
+} from '@apollo/experimental-nextjs-app-support';
+import { setContext } from '@apollo/client/link/context';
+import { createClient } from '@/utils/supabase';
 
 function makeClient() {
   const authLink = setContext(async (_, { headers }) => {
@@ -20,7 +20,7 @@ function makeClient() {
       headers: {
         ...headers,
         apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-        Authorization: token ? `Bearer ${token}` : "",
+        Authorization: token ? `Bearer ${token}` : '',
       },
     };
   });
