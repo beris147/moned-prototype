@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { ProviderUpdateInput, UserUpdateInput } from '@/lib/gql/graphql';
-import ProviderSignupForm from './provider-signup-form';
-import ProviderInfoForm from './provider-info-form';
+import ProviderSignupForm from '../components/provider-signup-form';
+import ProviderInfoForm from '../components/provider-info-form';
 
 type Props = {
   user: UserUpdateInput;

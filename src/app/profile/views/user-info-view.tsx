@@ -3,7 +3,7 @@ import React from 'react';
 import { getSSRClient } from '@/lib/apollo/ssr-client';
 import { graphql } from '@/lib/gql/gql';
 import { redirect } from 'next/navigation';
-import UserInfoForm from './user-info-form';
+import UserInfoForm from '../components/user-info-form';
 import ProviderInfoView from './provider-info-view';
 
 const query = graphql(`
@@ -40,13 +40,15 @@ export default async function UserInfo({ userID }: { userID: string }) {
   if (error || !data) {
     redirect('/error');
   }
-  const user = data.userCollection?.edges.at(0)?.user;
+  const userData = data.userCollection?.edges.at(0)?.user;
+  const { provider, ...user } = userData || {};
+
   return (
     <>
       {user && (
         <>
           <UserInfoForm user={user} />
-          <ProviderInfoView provider={user.provider} user={user} />
+          <ProviderInfoView provider={provider} user={user} />
         </>
       )}
     </>

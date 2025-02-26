@@ -2,7 +2,7 @@ import React from 'react';
 
 import { redirect } from 'next/navigation';
 import { getAuthUser } from '../(auth)/utils';
-import UserInfo from './components/user-info-view';
+import UserInfo from './views/user-info-view';
 
 export default async function ProfilePage() {
   const { user, error } = await getAuthUser();
