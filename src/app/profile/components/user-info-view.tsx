@@ -4,6 +4,7 @@ import { getSSRClient } from '@/lib/apollo/ssr-client';
 import { graphql } from '@/lib/gql/gql';
 import { redirect } from 'next/navigation';
 import UserInfoForm from './user-info-form';
+import ProviderInfoView from './provider-info-view';
 
 const query = graphql(`
   query UserInfo($id: UUID) {
@@ -14,6 +15,11 @@ const query = graphql(`
           email
           phone_number
           id
+          provider {
+            cedula
+            account_status
+            degree
+          }
         }
       }
     }
@@ -35,5 +41,14 @@ export default async function UserInfo({ userID }: { userID: string }) {
     redirect('/error');
   }
   const user = data.userCollection?.edges.at(0)?.user;
-  return <>{user && <UserInfoForm user={user} />}</>;
+  return (
+    <>
+      {user && (
+        <>
+          <UserInfoForm user={user} />
+          <ProviderInfoView provider={user.provider} user={user} />
+        </>
+      )}
+    </>
+  );
 }

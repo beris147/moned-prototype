@@ -15,15 +15,15 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 type Documents = {
     "\n  mutation UpdateUserProfile($id: UUID, $userInput: userUpdateInput!) {\n    updateuserCollection(filter: { id: { eq: $id } }, set: $userInput) {\n      records {\n        id\n        full_name\n        email\n        phone_number\n      }\n    }\n  }\n": typeof types.UpdateUserProfileDocument,
-    "\n  query UserInfo($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          full_name\n          email\n          phone_number\n          id\n        }\n      }\n    }\n  }\n": typeof types.UserInfoDocument,
-    "\n  fragment UserData on user {\n    full_name\n    email\n    phone_number\n    id\n  }\n": typeof types.UserDataFragmentDoc,
-    "\n  mutation UpdateUser($id: UUID, $userInput: userUpdateInput!) {\n    updateuserCollection(filter: { id: { eq: $id } }, set: $userInput) {\n      records {\n        ...UserData\n      }\n    }\n  }\n": typeof types.UpdateUserDocument,
+    "\n  mutation SignUpProvider($providerInput: providerInsertInput!) {\n    insertIntoproviderCollection(objects: [$providerInput]) {\n      records {\n        degree\n        cedula\n        created_at\n        account_status\n      }\n    }\n  }\n": typeof types.SignUpProviderDocument,
+    "\n  mutation UpdateProviderData($id: UUID, $providerInput: providerUpdateInput!) {\n    updateproviderCollection(filter: { id: { eq: $id } }, set: $providerInput) {\n      records {\n        degree\n        cedula\n        created_at\n        account_status\n      }\n    }\n  }\n": typeof types.UpdateProviderDataDocument,
+    "\n  query UserInfo($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          full_name\n          email\n          phone_number\n          id\n          provider {\n            cedula\n            account_status\n            degree\n          }\n        }\n      }\n    }\n  }\n": typeof types.UserInfoDocument,
 };
 const documents: Documents = {
     "\n  mutation UpdateUserProfile($id: UUID, $userInput: userUpdateInput!) {\n    updateuserCollection(filter: { id: { eq: $id } }, set: $userInput) {\n      records {\n        id\n        full_name\n        email\n        phone_number\n      }\n    }\n  }\n": types.UpdateUserProfileDocument,
-    "\n  query UserInfo($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          full_name\n          email\n          phone_number\n          id\n        }\n      }\n    }\n  }\n": types.UserInfoDocument,
-    "\n  fragment UserData on user {\n    full_name\n    email\n    phone_number\n    id\n  }\n": types.UserDataFragmentDoc,
-    "\n  mutation UpdateUser($id: UUID, $userInput: userUpdateInput!) {\n    updateuserCollection(filter: { id: { eq: $id } }, set: $userInput) {\n      records {\n        ...UserData\n      }\n    }\n  }\n": types.UpdateUserDocument,
+    "\n  mutation SignUpProvider($providerInput: providerInsertInput!) {\n    insertIntoproviderCollection(objects: [$providerInput]) {\n      records {\n        degree\n        cedula\n        created_at\n        account_status\n      }\n    }\n  }\n": types.SignUpProviderDocument,
+    "\n  mutation UpdateProviderData($id: UUID, $providerInput: providerUpdateInput!) {\n    updateproviderCollection(filter: { id: { eq: $id } }, set: $providerInput) {\n      records {\n        degree\n        cedula\n        created_at\n        account_status\n      }\n    }\n  }\n": types.UpdateProviderDataDocument,
+    "\n  query UserInfo($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          full_name\n          email\n          phone_number\n          id\n          provider {\n            cedula\n            account_status\n            degree\n          }\n        }\n      }\n    }\n  }\n": types.UserInfoDocument,
 };
 
 /**
@@ -47,15 +47,15 @@ export function graphql(source: "\n  mutation UpdateUserProfile($id: UUID, $user
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query UserInfo($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          full_name\n          email\n          phone_number\n          id\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query UserInfo($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          full_name\n          email\n          phone_number\n          id\n        }\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  mutation SignUpProvider($providerInput: providerInsertInput!) {\n    insertIntoproviderCollection(objects: [$providerInput]) {\n      records {\n        degree\n        cedula\n        created_at\n        account_status\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation SignUpProvider($providerInput: providerInsertInput!) {\n    insertIntoproviderCollection(objects: [$providerInput]) {\n      records {\n        degree\n        cedula\n        created_at\n        account_status\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment UserData on user {\n    full_name\n    email\n    phone_number\n    id\n  }\n"): (typeof documents)["\n  fragment UserData on user {\n    full_name\n    email\n    phone_number\n    id\n  }\n"];
+export function graphql(source: "\n  mutation UpdateProviderData($id: UUID, $providerInput: providerUpdateInput!) {\n    updateproviderCollection(filter: { id: { eq: $id } }, set: $providerInput) {\n      records {\n        degree\n        cedula\n        created_at\n        account_status\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateProviderData($id: UUID, $providerInput: providerUpdateInput!) {\n    updateproviderCollection(filter: { id: { eq: $id } }, set: $providerInput) {\n      records {\n        degree\n        cedula\n        created_at\n        account_status\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation UpdateUser($id: UUID, $userInput: userUpdateInput!) {\n    updateuserCollection(filter: { id: { eq: $id } }, set: $userInput) {\n      records {\n        ...UserData\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateUser($id: UUID, $userInput: userUpdateInput!) {\n    updateuserCollection(filter: { id: { eq: $id } }, set: $userInput) {\n      records {\n        ...UserData\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query UserInfo($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          full_name\n          email\n          phone_number\n          id\n          provider {\n            cedula\n            account_status\n            degree\n          }\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query UserInfo($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          full_name\n          email\n          phone_number\n          id\n          provider {\n            cedula\n            account_status\n            degree\n          }\n        }\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

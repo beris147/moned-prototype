@@ -7,12 +7,14 @@ import {
 } from 'react-hook-form';
 import {
   OptimisticActionFunction,
+  OptimisticAfterActions,
   useOptimisticAction,
 } from './use-optimistic-action';
 
 export function useOptimisticForm<T extends FieldValues>(
-  initialData: T,
-  action: OptimisticActionFunction<T>
+  initialData: T | undefined,
+  action: OptimisticActionFunction<T>,
+  afterActions: OptimisticAfterActions<T> = {}
 ): {
   form: {
     register: UseFormRegister<T>;
@@ -25,7 +27,8 @@ export function useOptimisticForm<T extends FieldValues>(
 } {
   const [formData, updateFormData, isPending] = useOptimisticAction(
     initialData,
-    action
+    action,
+    afterActions
   );
   const defaultValues = formData as DefaultValues<T>;
   const { register, handleSubmit, reset } = useForm<T>({
