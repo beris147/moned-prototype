@@ -75,6 +75,13 @@ npx supabase stop --no-backup
 npx supabase unlink
 ```
 
+## Push local supabase changes
+
+```bash
+npx supabase db diff -f 'changes_filename'
+npx supabase db push
+```
+
 ## GraphQL Codegen
 
 Project needs to run codegen when there are changes in schemas, the only way I
