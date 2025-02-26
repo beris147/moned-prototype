@@ -2,49 +2,36 @@
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T,
-> = { [_ in K]?: never };
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
-    };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
   /** A high precision floating point value represented as a string */
-  BigFloat: { input: string; output: string };
+  BigFloat: { input: string; output: string; }
   /** An arbitrary size integer represented as a string */
-  BigInt: { input: string; output: string };
+  BigInt: { input: string; output: string; }
   /** An opaque string using for tracking a position in results during pagination */
-  Cursor: { input: any; output: any };
+  Cursor: { input: any; output: any; }
   /** A date without time information */
-  Date: { input: string; output: string };
+  Date: { input: string; output: string; }
   /** A date and time */
-  Datetime: { input: string; output: string };
+  Datetime: { input: string; output: string; }
   /** A Javascript Object Notation value serialized as a string */
-  JSON: { input: string; output: string };
+  JSON: { input: string; output: string; }
   /** Any type not handled by the type system */
-  Opaque: { input: any; output: any };
+  Opaque: { input: any; output: any; }
   /** A time without date information */
-  Time: { input: string; output: string };
+  Time: { input: string; output: string; }
   /** A universally unique identifier */
-  UUID: { input: string; output: string };
+  UUID: { input: string; output: string; }
 };
 
 /** Boolean expression comparing fields on type "BigFloat" */
@@ -148,7 +135,7 @@ export type DatetimeListFilter = {
 
 export enum FilterIs {
   NotNull = 'NOT_NULL',
-  Null = 'NULL',
+  Null = 'NULL'
 }
 
 /** Boolean expression comparing fields on type "Float" */
@@ -205,39 +192,40 @@ export type Mutation = {
   deleteFromadminCollection: AdminDeleteResponse;
   /** Deletes zero or more records from the `appointment` collection */
   deleteFromappointmentCollection: AppointmentDeleteResponse;
-  /** Deletes zero or more records from the `message` collection */
-  deleteFrommessageCollection: MessageDeleteResponse;
-  /** Deletes zero or more records from the `patient` collection */
-  deleteFrompatientCollection: PatientDeleteResponse;
+  /** Deletes zero or more records from the `messages` collection */
+  deleteFrommessagesCollection: MessagesDeleteResponse;
   /** Deletes zero or more records from the `provider` collection */
   deleteFromproviderCollection: ProviderDeleteResponse;
   /** Deletes zero or more records from the `provider_availability` collection */
   deleteFromprovider_availabilityCollection: Provider_AvailabilityDeleteResponse;
+  /** Deletes zero or more records from the `user` collection */
+  deleteFromuserCollection: UserDeleteResponse;
   /** Adds one or more `admin` records to the collection */
   insertIntoadminCollection?: Maybe<AdminInsertResponse>;
   /** Adds one or more `appointment` records to the collection */
   insertIntoappointmentCollection?: Maybe<AppointmentInsertResponse>;
-  /** Adds one or more `message` records to the collection */
-  insertIntomessageCollection?: Maybe<MessageInsertResponse>;
-  /** Adds one or more `patient` records to the collection */
-  insertIntopatientCollection?: Maybe<PatientInsertResponse>;
+  /** Adds one or more `messages` records to the collection */
+  insertIntomessagesCollection?: Maybe<MessagesInsertResponse>;
   /** Adds one or more `provider` records to the collection */
   insertIntoproviderCollection?: Maybe<ProviderInsertResponse>;
   /** Adds one or more `provider_availability` records to the collection */
   insertIntoprovider_availabilityCollection?: Maybe<Provider_AvailabilityInsertResponse>;
+  /** Adds one or more `user` records to the collection */
+  insertIntouserCollection?: Maybe<UserInsertResponse>;
   /** Updates zero or more records in the `admin` collection */
   updateadminCollection: AdminUpdateResponse;
   /** Updates zero or more records in the `appointment` collection */
   updateappointmentCollection: AppointmentUpdateResponse;
-  /** Updates zero or more records in the `message` collection */
-  updatemessageCollection: MessageUpdateResponse;
-  /** Updates zero or more records in the `patient` collection */
-  updatepatientCollection: PatientUpdateResponse;
+  /** Updates zero or more records in the `messages` collection */
+  updatemessagesCollection: MessagesUpdateResponse;
   /** Updates zero or more records in the `provider` collection */
   updateproviderCollection: ProviderUpdateResponse;
   /** Updates zero or more records in the `provider_availability` collection */
   updateprovider_availabilityCollection: Provider_AvailabilityUpdateResponse;
+  /** Updates zero or more records in the `user` collection */
+  updateuserCollection: UserUpdateResponse;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationDeleteFromadminCollectionArgs = {
@@ -245,23 +233,20 @@ export type MutationDeleteFromadminCollectionArgs = {
   filter?: InputMaybe<AdminFilter>;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationDeleteFromappointmentCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<AppointmentFilter>;
 };
 
-/** The root type for creating and mutating data */
-export type MutationDeleteFrommessageCollectionArgs = {
-  atMost?: Scalars['Int']['input'];
-  filter?: InputMaybe<MessageFilter>;
-};
 
 /** The root type for creating and mutating data */
-export type MutationDeleteFrompatientCollectionArgs = {
+export type MutationDeleteFrommessagesCollectionArgs = {
   atMost?: Scalars['Int']['input'];
-  filter?: InputMaybe<PatientFilter>;
+  filter?: InputMaybe<MessagesFilter>;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationDeleteFromproviderCollectionArgs = {
@@ -269,41 +254,56 @@ export type MutationDeleteFromproviderCollectionArgs = {
   filter?: InputMaybe<ProviderFilter>;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationDeleteFromprovider_AvailabilityCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<Provider_AvailabilityFilter>;
 };
 
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFromuserCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<UserFilter>;
+};
+
+
 /** The root type for creating and mutating data */
 export type MutationInsertIntoadminCollectionArgs = {
   objects: Array<AdminInsertInput>;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationInsertIntoappointmentCollectionArgs = {
   objects: Array<AppointmentInsertInput>;
 };
 
-/** The root type for creating and mutating data */
-export type MutationInsertIntomessageCollectionArgs = {
-  objects: Array<MessageInsertInput>;
-};
 
 /** The root type for creating and mutating data */
-export type MutationInsertIntopatientCollectionArgs = {
-  objects: Array<PatientInsertInput>;
+export type MutationInsertIntomessagesCollectionArgs = {
+  objects: Array<MessagesInsertInput>;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationInsertIntoproviderCollectionArgs = {
   objects: Array<ProviderInsertInput>;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationInsertIntoprovider_AvailabilityCollectionArgs = {
   objects: Array<Provider_AvailabilityInsertInput>;
 };
+
+
+/** The root type for creating and mutating data */
+export type MutationInsertIntouserCollectionArgs = {
+  objects: Array<UserInsertInput>;
+};
+
 
 /** The root type for creating and mutating data */
 export type MutationUpdateadminCollectionArgs = {
@@ -312,6 +312,7 @@ export type MutationUpdateadminCollectionArgs = {
   set: AdminUpdateInput;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationUpdateappointmentCollectionArgs = {
   atMost?: Scalars['Int']['input'];
@@ -319,19 +320,14 @@ export type MutationUpdateappointmentCollectionArgs = {
   set: AppointmentUpdateInput;
 };
 
-/** The root type for creating and mutating data */
-export type MutationUpdatemessageCollectionArgs = {
-  atMost?: Scalars['Int']['input'];
-  filter?: InputMaybe<MessageFilter>;
-  set: MessageUpdateInput;
-};
 
 /** The root type for creating and mutating data */
-export type MutationUpdatepatientCollectionArgs = {
+export type MutationUpdatemessagesCollectionArgs = {
   atMost?: Scalars['Int']['input'];
-  filter?: InputMaybe<PatientFilter>;
-  set: PatientUpdateInput;
+  filter?: InputMaybe<MessagesFilter>;
+  set: MessagesUpdateInput;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationUpdateproviderCollectionArgs = {
@@ -340,11 +336,20 @@ export type MutationUpdateproviderCollectionArgs = {
   set: ProviderUpdateInput;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationUpdateprovider_AvailabilityCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<Provider_AvailabilityFilter>;
   set: Provider_AvailabilityUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdateuserCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<UserFilter>;
+  set: UserUpdateInput;
 };
 
 export type Node = {
@@ -367,7 +372,7 @@ export enum OrderByDirection {
   /** Descending order, nulls first */
   DescNullsFirst = 'DescNullsFirst',
   /** Descending order, nulls last */
-  DescNullsLast = 'DescNullsLast',
+  DescNullsLast = 'DescNullsLast'
 }
 
 export type PageInfo = {
@@ -385,17 +390,18 @@ export type Query = {
   adminCollection?: Maybe<AdminConnection>;
   /** A pagable collection of type `appointment` */
   appointmentCollection?: Maybe<AppointmentConnection>;
-  /** A pagable collection of type `message` */
-  messageCollection?: Maybe<MessageConnection>;
+  /** A pagable collection of type `messages` */
+  messagesCollection?: Maybe<MessagesConnection>;
   /** Retrieve a record by its `ID` */
   node?: Maybe<Node>;
-  /** A pagable collection of type `patient` */
-  patientCollection?: Maybe<PatientConnection>;
   /** A pagable collection of type `provider` */
   providerCollection?: Maybe<ProviderConnection>;
   /** A pagable collection of type `provider_availability` */
   provider_availabilityCollection?: Maybe<Provider_AvailabilityConnection>;
+  /** A pagable collection of type `user` */
+  userCollection?: Maybe<UserConnection>;
 };
+
 
 /** The root type for querying data */
 export type QueryAdminCollectionArgs = {
@@ -408,6 +414,7 @@ export type QueryAdminCollectionArgs = {
   orderBy?: InputMaybe<Array<AdminOrderBy>>;
 };
 
+
 /** The root type for querying data */
 export type QueryAppointmentCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -419,32 +426,24 @@ export type QueryAppointmentCollectionArgs = {
   orderBy?: InputMaybe<Array<AppointmentOrderBy>>;
 };
 
+
 /** The root type for querying data */
-export type QueryMessageCollectionArgs = {
+export type QueryMessagesCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<MessageFilter>;
+  filter?: InputMaybe<MessagesFilter>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<MessageOrderBy>>;
+  orderBy?: InputMaybe<Array<MessagesOrderBy>>;
 };
+
 
 /** The root type for querying data */
 export type QueryNodeArgs = {
   nodeId: Scalars['ID']['input'];
 };
 
-/** The root type for querying data */
-export type QueryPatientCollectionArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<PatientFilter>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<PatientOrderBy>>;
-};
 
 /** The root type for querying data */
 export type QueryProviderCollectionArgs = {
@@ -457,6 +456,7 @@ export type QueryProviderCollectionArgs = {
   orderBy?: InputMaybe<Array<ProviderOrderBy>>;
 };
 
+
 /** The root type for querying data */
 export type QueryProvider_AvailabilityCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -466,6 +466,18 @@ export type QueryProvider_AvailabilityCollectionArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<Provider_AvailabilityOrderBy>>;
+};
+
+
+/** The root type for querying data */
+export type QueryUserCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<UserFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<UserOrderBy>>;
 };
 
 /** Boolean expression comparing fields on type "String" */
@@ -536,11 +548,10 @@ export type Admin = Node & {
   __typename?: 'admin';
   account_status?: Maybe<Admin_Account_Status>;
   created_at: Scalars['Datetime']['output'];
-  email: Scalars['String']['output'];
   id: Scalars['UUID']['output'];
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
-  phone_number: Scalars['String']['output'];
+  user?: Maybe<User>;
 };
 
 export type AdminConnection = {
@@ -568,22 +579,18 @@ export type AdminFilter = {
   /** Returns true only if all its inner filters are true, otherwise returns false */
   and?: InputMaybe<Array<AdminFilter>>;
   created_at?: InputMaybe<DatetimeFilter>;
-  email?: InputMaybe<StringFilter>;
   id?: InputMaybe<UuidFilter>;
   nodeId?: InputMaybe<IdFilter>;
   /** Negates a filter */
   not?: InputMaybe<AdminFilter>;
   /** Returns true if at least one of its inner filters is true, otherwise returns false */
   or?: InputMaybe<Array<AdminFilter>>;
-  phone_number?: InputMaybe<StringFilter>;
 };
 
 export type AdminInsertInput = {
   account_status?: InputMaybe<Admin_Account_Status>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['UUID']['input']>;
-  phone_number?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type AdminInsertResponse = {
@@ -597,17 +604,13 @@ export type AdminInsertResponse = {
 export type AdminOrderBy = {
   account_status?: InputMaybe<OrderByDirection>;
   created_at?: InputMaybe<OrderByDirection>;
-  email?: InputMaybe<OrderByDirection>;
   id?: InputMaybe<OrderByDirection>;
-  phone_number?: InputMaybe<OrderByDirection>;
 };
 
 export type AdminUpdateInput = {
   account_status?: InputMaybe<Admin_Account_Status>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['UUID']['input']>;
-  phone_number?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type AdminUpdateResponse = {
@@ -622,7 +625,7 @@ export enum Admin_Account_Status {
   Active = 'active',
   Suspended = 'suspended',
   Test = 'test',
-  Unknown = 'unknown',
+  Unknown = 'unknown'
 }
 
 /** Boolean expression comparing fields on type "admin_account_status" */
@@ -640,10 +643,10 @@ export type Appointment = Node & {
   id: Scalars['UUID']['output'];
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
-  patient?: Maybe<Patient>;
   patient_user_id?: Maybe<Scalars['UUID']['output']>;
   provider?: Maybe<Provider>;
   provider_user_id: Scalars['UUID']['output'];
+  user?: Maybe<User>;
 };
 
 export type AppointmentConnection = {
@@ -721,8 +724,8 @@ export type AppointmentUpdateResponse = {
   records: Array<Appointment>;
 };
 
-export type Message = Node & {
-  __typename?: 'message';
+export type Messages = Node & {
+  __typename?: 'messages';
   content: Scalars['String']['output'];
   created_at: Scalars['Datetime']['output'];
   from_user_id: Scalars['UUID']['output'];
@@ -730,44 +733,45 @@ export type Message = Node & {
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
   to_user_id: Scalars['UUID']['output'];
+  user?: Maybe<User>;
 };
 
-export type MessageConnection = {
-  __typename?: 'messageConnection';
-  edges: Array<MessageEdge>;
+export type MessagesConnection = {
+  __typename?: 'messagesConnection';
+  edges: Array<MessagesEdge>;
   pageInfo: PageInfo;
 };
 
-export type MessageDeleteResponse = {
-  __typename?: 'messageDeleteResponse';
+export type MessagesDeleteResponse = {
+  __typename?: 'messagesDeleteResponse';
   /** Count of the records impacted by the mutation */
   affectedCount: Scalars['Int']['output'];
   /** Array of records impacted by the mutation */
-  records: Array<Message>;
+  records: Array<Messages>;
 };
 
-export type MessageEdge = {
-  __typename?: 'messageEdge';
+export type MessagesEdge = {
+  __typename?: 'messagesEdge';
   cursor: Scalars['String']['output'];
-  node: Message;
+  node: Messages;
 };
 
-export type MessageFilter = {
+export type MessagesFilter = {
   /** Returns true only if all its inner filters are true, otherwise returns false */
-  and?: InputMaybe<Array<MessageFilter>>;
+  and?: InputMaybe<Array<MessagesFilter>>;
   content?: InputMaybe<StringFilter>;
   created_at?: InputMaybe<DatetimeFilter>;
   from_user_id?: InputMaybe<UuidFilter>;
   id?: InputMaybe<UuidFilter>;
   nodeId?: InputMaybe<IdFilter>;
   /** Negates a filter */
-  not?: InputMaybe<MessageFilter>;
+  not?: InputMaybe<MessagesFilter>;
   /** Returns true if at least one of its inner filters is true, otherwise returns false */
-  or?: InputMaybe<Array<MessageFilter>>;
+  or?: InputMaybe<Array<MessagesFilter>>;
   to_user_id?: InputMaybe<UuidFilter>;
 };
 
-export type MessageInsertInput = {
+export type MessagesInsertInput = {
   content?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   from_user_id?: InputMaybe<Scalars['UUID']['input']>;
@@ -775,15 +779,15 @@ export type MessageInsertInput = {
   to_user_id?: InputMaybe<Scalars['UUID']['input']>;
 };
 
-export type MessageInsertResponse = {
-  __typename?: 'messageInsertResponse';
+export type MessagesInsertResponse = {
+  __typename?: 'messagesInsertResponse';
   /** Count of the records impacted by the mutation */
   affectedCount: Scalars['Int']['output'];
   /** Array of records impacted by the mutation */
-  records: Array<Message>;
+  records: Array<Messages>;
 };
 
-export type MessageOrderBy = {
+export type MessagesOrderBy = {
   content?: InputMaybe<OrderByDirection>;
   created_at?: InputMaybe<OrderByDirection>;
   from_user_id?: InputMaybe<OrderByDirection>;
@@ -791,7 +795,7 @@ export type MessageOrderBy = {
   to_user_id?: InputMaybe<OrderByDirection>;
 };
 
-export type MessageUpdateInput = {
+export type MessagesUpdateInput = {
   content?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   from_user_id?: InputMaybe<Scalars['UUID']['input']>;
@@ -799,104 +803,12 @@ export type MessageUpdateInput = {
   to_user_id?: InputMaybe<Scalars['UUID']['input']>;
 };
 
-export type MessageUpdateResponse = {
-  __typename?: 'messageUpdateResponse';
+export type MessagesUpdateResponse = {
+  __typename?: 'messagesUpdateResponse';
   /** Count of the records impacted by the mutation */
   affectedCount: Scalars['Int']['output'];
   /** Array of records impacted by the mutation */
-  records: Array<Message>;
-};
-
-export type Patient = Node & {
-  __typename?: 'patient';
-  appointmentCollection?: Maybe<AppointmentConnection>;
-  created_at: Scalars['Datetime']['output'];
-  email: Scalars['String']['output'];
-  full_name?: Maybe<Scalars['String']['output']>;
-  id: Scalars['UUID']['output'];
-  /** Globally Unique Record Identifier */
-  nodeId: Scalars['ID']['output'];
-};
-
-export type PatientAppointmentCollectionArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<AppointmentFilter>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<AppointmentOrderBy>>;
-};
-
-export type PatientConnection = {
-  __typename?: 'patientConnection';
-  edges: Array<PatientEdge>;
-  pageInfo: PageInfo;
-};
-
-export type PatientDeleteResponse = {
-  __typename?: 'patientDeleteResponse';
-  /** Count of the records impacted by the mutation */
-  affectedCount: Scalars['Int']['output'];
-  /** Array of records impacted by the mutation */
-  records: Array<Patient>;
-};
-
-export type PatientEdge = {
-  __typename?: 'patientEdge';
-  cursor: Scalars['String']['output'];
-  node: Patient;
-};
-
-export type PatientFilter = {
-  /** Returns true only if all its inner filters are true, otherwise returns false */
-  and?: InputMaybe<Array<PatientFilter>>;
-  created_at?: InputMaybe<DatetimeFilter>;
-  email?: InputMaybe<StringFilter>;
-  full_name?: InputMaybe<StringFilter>;
-  id?: InputMaybe<UuidFilter>;
-  nodeId?: InputMaybe<IdFilter>;
-  /** Negates a filter */
-  not?: InputMaybe<PatientFilter>;
-  /** Returns true if at least one of its inner filters is true, otherwise returns false */
-  or?: InputMaybe<Array<PatientFilter>>;
-};
-
-export type PatientInsertInput = {
-  created_at?: InputMaybe<Scalars['Datetime']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  full_name?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['UUID']['input']>;
-};
-
-export type PatientInsertResponse = {
-  __typename?: 'patientInsertResponse';
-  /** Count of the records impacted by the mutation */
-  affectedCount: Scalars['Int']['output'];
-  /** Array of records impacted by the mutation */
-  records: Array<Patient>;
-};
-
-export type PatientOrderBy = {
-  created_at?: InputMaybe<OrderByDirection>;
-  email?: InputMaybe<OrderByDirection>;
-  full_name?: InputMaybe<OrderByDirection>;
-  id?: InputMaybe<OrderByDirection>;
-};
-
-export type PatientUpdateInput = {
-  created_at?: InputMaybe<Scalars['Datetime']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  full_name?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['UUID']['input']>;
-};
-
-export type PatientUpdateResponse = {
-  __typename?: 'patientUpdateResponse';
-  /** Count of the records impacted by the mutation */
-  affectedCount: Scalars['Int']['output'];
-  /** Array of records impacted by the mutation */
-  records: Array<Patient>;
+  records: Array<Messages>;
 };
 
 export type Provider = Node & {
@@ -906,14 +818,13 @@ export type Provider = Node & {
   cedula: Scalars['String']['output'];
   created_at: Scalars['Datetime']['output'];
   degree: Scalars['String']['output'];
-  email: Scalars['String']['output'];
-  full_name?: Maybe<Scalars['String']['output']>;
   id: Scalars['UUID']['output'];
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
-  phone_number?: Maybe<Scalars['String']['output']>;
   provider_availabilityCollection?: Maybe<Provider_AvailabilityConnection>;
+  user?: Maybe<User>;
 };
+
 
 export type ProviderAppointmentCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -924,6 +835,7 @@ export type ProviderAppointmentCollectionArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<AppointmentOrderBy>>;
 };
+
 
 export type ProviderProvider_AvailabilityCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -962,15 +874,12 @@ export type ProviderFilter = {
   cedula?: InputMaybe<StringFilter>;
   created_at?: InputMaybe<DatetimeFilter>;
   degree?: InputMaybe<StringFilter>;
-  email?: InputMaybe<StringFilter>;
-  full_name?: InputMaybe<StringFilter>;
   id?: InputMaybe<UuidFilter>;
   nodeId?: InputMaybe<IdFilter>;
   /** Negates a filter */
   not?: InputMaybe<ProviderFilter>;
   /** Returns true if at least one of its inner filters is true, otherwise returns false */
   or?: InputMaybe<Array<ProviderFilter>>;
-  phone_number?: InputMaybe<StringFilter>;
 };
 
 export type ProviderInsertInput = {
@@ -978,10 +887,7 @@ export type ProviderInsertInput = {
   cedula?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   degree?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  full_name?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['UUID']['input']>;
-  phone_number?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ProviderInsertResponse = {
@@ -997,10 +903,7 @@ export type ProviderOrderBy = {
   cedula?: InputMaybe<OrderByDirection>;
   created_at?: InputMaybe<OrderByDirection>;
   degree?: InputMaybe<OrderByDirection>;
-  email?: InputMaybe<OrderByDirection>;
-  full_name?: InputMaybe<OrderByDirection>;
   id?: InputMaybe<OrderByDirection>;
-  phone_number?: InputMaybe<OrderByDirection>;
 };
 
 export type ProviderUpdateInput = {
@@ -1008,10 +911,7 @@ export type ProviderUpdateInput = {
   cedula?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   degree?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  full_name?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['UUID']['input']>;
-  phone_number?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ProviderUpdateResponse = {
@@ -1027,7 +927,7 @@ export enum Provider_Account_Status {
   Suspended = 'suspended',
   Test = 'test',
   Unknown = 'unknown',
-  Unverified = 'unverified',
+  Unverified = 'unverified'
 }
 
 /** Boolean expression comparing fields on type "provider_account_status" */
@@ -1120,14 +1020,131 @@ export type Provider_AvailabilityUpdateResponse = {
   records: Array<Provider_Availability>;
 };
 
+export type User = Node & {
+  __typename?: 'user';
+  admin?: Maybe<Admin>;
+  appointmentCollection?: Maybe<AppointmentConnection>;
+  created_at: Scalars['Datetime']['output'];
+  email: Scalars['String']['output'];
+  full_name?: Maybe<Scalars['String']['output']>;
+  id: Scalars['UUID']['output'];
+  messagesCollection?: Maybe<MessagesConnection>;
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID']['output'];
+  phone_number?: Maybe<Scalars['String']['output']>;
+  provider?: Maybe<Provider>;
+  testing: Scalars['Boolean']['output'];
+};
+
+
+export type UserAppointmentCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<AppointmentFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AppointmentOrderBy>>;
+};
+
+
+export type UserMessagesCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<MessagesFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<MessagesOrderBy>>;
+};
+
+export type UserConnection = {
+  __typename?: 'userConnection';
+  edges: Array<UserEdge>;
+  pageInfo: PageInfo;
+};
+
+export type UserDeleteResponse = {
+  __typename?: 'userDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<User>;
+};
+
+export type UserEdge = {
+  __typename?: 'userEdge';
+  cursor: Scalars['String']['output'];
+  node: User;
+};
+
+export type UserFilter = {
+  /** Returns true only if all its inner filters are true, otherwise returns false */
+  and?: InputMaybe<Array<UserFilter>>;
+  created_at?: InputMaybe<DatetimeFilter>;
+  email?: InputMaybe<StringFilter>;
+  full_name?: InputMaybe<StringFilter>;
+  id?: InputMaybe<UuidFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  /** Negates a filter */
+  not?: InputMaybe<UserFilter>;
+  /** Returns true if at least one of its inner filters is true, otherwise returns false */
+  or?: InputMaybe<Array<UserFilter>>;
+  phone_number?: InputMaybe<StringFilter>;
+  testing?: InputMaybe<BooleanFilter>;
+};
+
+export type UserInsertInput = {
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  full_name?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['UUID']['input']>;
+  phone_number?: InputMaybe<Scalars['String']['input']>;
+  testing?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type UserInsertResponse = {
+  __typename?: 'userInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<User>;
+};
+
+export type UserOrderBy = {
+  created_at?: InputMaybe<OrderByDirection>;
+  email?: InputMaybe<OrderByDirection>;
+  full_name?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  phone_number?: InputMaybe<OrderByDirection>;
+  testing?: InputMaybe<OrderByDirection>;
+};
+
+export type UserUpdateInput = {
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  full_name?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['UUID']['input']>;
+  phone_number?: InputMaybe<Scalars['String']['input']>;
+  testing?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type UserUpdateResponse = {
+  __typename?: 'userUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<User>;
+};
+
 export enum Week_Day {
   Friday = 'friday',
   Monday = 'monday',
   Saturday = 'saturday',
   Sunday = 'sunday',
   Thursday = 'thursday',
-  Wednesday = 'wednesday',
-  Yuesday = 'yuesday',
+  Tuesday = 'tuesday',
+  Wednesday = 'wednesday'
 }
 
 /** Boolean expression comparing fields on type "week_day" */
@@ -1138,118 +1155,29 @@ export type Week_DayFilter = {
   neq?: InputMaybe<Week_Day>;
 };
 
-export type UserProfileQueryVariables = Exact<{
+export type UserInfoQueryVariables = Exact<{
   id?: InputMaybe<Scalars['UUID']['input']>;
 }>;
 
-export type UserProfileQuery = {
-  __typename: 'Query';
-  patientCollection?: {
-    __typename: 'patientConnection';
-    edges: Array<{
-      __typename: 'patientEdge';
-      patient: {
-        __typename: 'patient';
-        full_name?: string | null;
-        email: string;
-      };
-    }>;
-  } | null;
-};
 
-export const UserProfileDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'UserProfile' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'UUID' } },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'patientCollection' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'id' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'eq' },
-                            value: {
-                              kind: 'Variable',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'edges' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: '__typename' },
-                      },
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'patient' },
-                        name: { kind: 'Name', value: 'node' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: '__typename' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'full_name' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'email' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<UserProfileQuery, UserProfileQueryVariables>;
+export type UserInfoQuery = { __typename: 'Query', userCollection?: { __typename: 'userConnection', edges: Array<{ __typename: 'userEdge', user: (
+        { __typename: 'user', email: string }
+        & { ' $fragmentRefs'?: { 'UserDataFragment': UserDataFragment } }
+      ) }> } | null };
+
+export type UserDataFragment = { __typename: 'user', full_name?: string | null, email: string, phone_number?: string | null, id: string } & { ' $fragmentName'?: 'UserDataFragment' };
+
+export type UpdateUserMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['UUID']['input']>;
+  userInput: UserUpdateInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename: 'Mutation', updateuserCollection: { __typename: 'userUpdateResponse', records: Array<(
+      { __typename: 'user' }
+      & { ' $fragmentRefs'?: { 'UserDataFragment': UserDataFragment } }
+    )> } };
+
+export const UserDataFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"full_name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<UserDataFragment, unknown>;
+export const UserInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"userCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","alias":{"kind":"Name","value":"user"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserData"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"full_name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<UserInfoQuery, UserInfoQueryVariables>;
+export const UpdateUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"userUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"updateuserCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserData"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserData"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"user"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"full_name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]} as unknown as DocumentNode<UpdateUserMutation, UpdateUserMutationVariables>;

@@ -3,21 +3,22 @@ import React from 'react';
 import { getSSRClient } from '@/lib/apollo/ssr-client';
 import { graphql } from '@/lib/gql/gql';
 import { redirect } from 'next/navigation';
+import UserInfoForm from './user-info-form';
 
 const query = graphql(`
-  query UserProfile($id: UUID) {
-    patientCollection(filter: { id: { eq: $id } }) {
+  query UserInfo($id: UUID) {
+    userCollection(filter: { id: { eq: $id } }) {
       edges {
-        patient: node {
-          full_name
+        user: node {
           email
+          ...UserData
         }
       }
     }
   }
 `);
 
-export default async function ProfileView({ userID }: { userID: string }) {
+export default async function UserInfo({ userID }: { userID: string }) {
   const client = await getSSRClient();
   const { data, loading, error } = await client.query({
     query,
@@ -28,13 +29,9 @@ export default async function ProfileView({ userID }: { userID: string }) {
   if (loading) {
     return <>Loading...</>;
   }
-  if (error) {
+  if (error || !data) {
     redirect('/error');
   }
-  const patient = data.patientCollection?.edges.at(0)?.patient;
-  return (
-    <>
-      Profile for: {patient?.email} - Name: {patient?.full_name}
-    </>
-  );
+  const user = data.userCollection?.edges.at(0)?.user;
+  return <>{user && <UserInfoForm from={user} />}</>;
 }

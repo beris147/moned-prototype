@@ -14,11 +14,14 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-  '\n  query UserProfile($id: UUID) {\n    patientCollection(filter: { id: { eq: $id } }) {\n      edges {\n        patient: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n': typeof types.UserProfileDocument;
+    "\n  query UserInfo($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          email\n          ...UserData\n        }\n      }\n    }\n  }\n": typeof types.UserInfoDocument,
+    "\n  fragment UserData on user {\n    full_name\n    email\n    phone_number\n    id\n  }\n": typeof types.UserDataFragmentDoc,
+    "\n  mutation UpdateUser($id: UUID, $userInput: userUpdateInput!) {\n    updateuserCollection(filter: { id: { eq: $id } }, set: $userInput) {\n      records {\n        ...UserData\n      }\n    }\n  }\n": typeof types.UpdateUserDocument,
 };
 const documents: Documents = {
-  '\n  query UserProfile($id: UUID) {\n    patientCollection(filter: { id: { eq: $id } }) {\n      edges {\n        patient: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n':
-    types.UserProfileDocument,
+    "\n  query UserInfo($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          email\n          ...UserData\n        }\n      }\n    }\n  }\n": types.UserInfoDocument,
+    "\n  fragment UserData on user {\n    full_name\n    email\n    phone_number\n    id\n  }\n": types.UserDataFragmentDoc,
+    "\n  mutation UpdateUser($id: UUID, $userInput: userUpdateInput!) {\n    updateuserCollection(filter: { id: { eq: $id } }, set: $userInput) {\n      records {\n        ...UserData\n      }\n    }\n  }\n": types.UpdateUserDocument,
 };
 
 /**
@@ -38,13 +41,18 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-  source: '\n  query UserProfile($id: UUID) {\n    patientCollection(filter: { id: { eq: $id } }) {\n      edges {\n        patient: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n'
-): (typeof documents)['\n  query UserProfile($id: UUID) {\n    patientCollection(filter: { id: { eq: $id } }) {\n      edges {\n        patient: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n'];
+export function graphql(source: "\n  query UserInfo($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          email\n          ...UserData\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query UserInfo($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          email\n          ...UserData\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment UserData on user {\n    full_name\n    email\n    phone_number\n    id\n  }\n"): (typeof documents)["\n  fragment UserData on user {\n    full_name\n    email\n    phone_number\n    id\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateUser($id: UUID, $userInput: userUpdateInput!) {\n    updateuserCollection(filter: { id: { eq: $id } }, set: $userInput) {\n      records {\n        ...UserData\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateUser($id: UUID, $userInput: userUpdateInput!) {\n    updateuserCollection(filter: { id: { eq: $id } }, set: $userInput) {\n      records {\n        ...UserData\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
-  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { redirect } from 'next/navigation';
 import { getAuthUser } from '../(auth)/utils';
-import ProfileView from './components/profile-view';
+import UserInfo from './components/user-info-view';
 
 export default async function ProfilePage() {
   const { user, error } = await getAuthUser();
@@ -11,7 +11,8 @@ export default async function ProfilePage() {
   }
   return (
     <>
-      <ProfileView userID={user.id} />
+      Profile Page! <br />
+      <UserInfo userID={user.id} />
     </>
   );
 }

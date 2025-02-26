@@ -4,7 +4,7 @@ import { addTypenameSelectionDocumentTransform } from '@graphql-codegen/client-p
 const config: CodegenConfig = {
   overwrite: true,
   schema: 'http://localhost:54321/graphql/v1',
-  documents: 'src/**/*.tsx',
+  documents: ['src/**/*.tsx', 'src/**/*.ts'],
   generates: {
     'src/lib/gql/': {
       preset: 'client',
