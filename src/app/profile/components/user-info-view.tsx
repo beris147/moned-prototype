@@ -10,8 +10,10 @@ const query = graphql(`
     userCollection(filter: { id: { eq: $id } }) {
       edges {
         user: node {
+          full_name
           email
-          ...UserData
+          phone_number
+          id
         }
       }
     }
@@ -33,5 +35,5 @@ export default async function UserInfo({ userID }: { userID: string }) {
     redirect('/error');
   }
   const user = data.userCollection?.edges.at(0)?.user;
-  return <>{user && <UserInfoForm from={user} />}</>;
+  return <>{user && <UserInfoForm user={user} />}</>;
 }
