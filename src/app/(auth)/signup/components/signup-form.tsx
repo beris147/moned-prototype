@@ -1,18 +1,41 @@
+'use client';
+
 import React from 'react';
+
 import GoogleSignInButton from '../../components/google-sign-in-button';
-import { signup } from '../../actions';
+import { signup, SignupFormData } from '../../actions';
+import { useForm } from 'react-hook-form';
+import TextInput from '@/utils/components/text-input';
+import FormButton from '@/utils/components/form-button';
 
 export default function SignupForm() {
+  const { register, handleSubmit } = useForm<SignupFormData>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+  const onSubmit = (data: SignupFormData) => {
+    signup(data);
+  };
+
   return (
     <>
-      <form>
-        <label htmlFor='email'>Email:</label>
-        <input id='email' name='email' type='email' required />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <TextInput
+          label='Email'
+          name='email'
+          type='email'
+          register={register}
+        />
+        <TextInput
+          label='Password'
+          name='password'
+          type='password'
+          register={register}
+        />
         <br />
-        <label htmlFor='password'>Password:</label>
-        <input id='password' name='password' type='password' required />
-        <br />
-        <button formAction={signup}>Sign up</button>
+        <FormButton type='submit' label={'Sign Up'} />
       </form>
       <GoogleSignInButton />
     </>
