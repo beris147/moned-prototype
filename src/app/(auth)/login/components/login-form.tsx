@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form';
 import { login, LoginFormData } from '../../actions';
 import LabelInput from '@/components/ui/label-input';
 import GoogleSignInButton from '../../components/google-sign-in-button';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function LoginForm({
   className,
@@ -28,7 +28,8 @@ export default function LoginForm({
       password: '',
     },
   });
-  const goToSignup = () => redirect('/signup');
+  const router = useRouter();
+  const goToSignup = () => router.push('/signup');
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>

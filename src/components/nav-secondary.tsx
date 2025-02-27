@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 
 import {
@@ -6,14 +8,15 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebarRoute,
 } from '@/components/ui/sidebar';
 import { NavSecondaryProps } from './types/nav-secondary-props';
-import { redirect } from 'next/navigation';
 
 export function NavSecondary({
   items,
   ...props
 }: NavSecondaryProps & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
+  const { redirect } = useSidebarRoute();
   return (
     <SidebarGroup {...props}>
       <SidebarGroupContent>

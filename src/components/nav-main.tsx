@@ -19,11 +19,12 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebarRoute,
 } from '@/components/ui/sidebar';
-import { redirect } from 'next/navigation';
 import { NavMainProps } from './types/nav-main-props';
 
 export function NavMain({ items }: NavMainProps) {
+  const { redirect } = useSidebarRoute();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>

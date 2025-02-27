@@ -11,7 +11,7 @@ import {
 
 import { NavMain } from '@/components/nav-main';
 import { NavSecondary } from '@/components/nav-secondary';
-import { NavUser } from '@/components/nav-user';
+import { NavUserLoggedIn, NavUserLoggedOut } from '@/components/nav-user';
 import {
   Sidebar,
   SidebarContent,
@@ -21,7 +21,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { ReadonlyUser } from '@/utils/types';
 import { NavSecondaryProps } from './types/nav-secondary-props';
 import { NavMainProps } from './types/nav-main-props';
 
@@ -74,10 +73,10 @@ const data: SideBarData = {
 
 type Props = {
   props?: React.ComponentProps<typeof Sidebar>;
-  user?: ReadonlyUser;
+  userID?: string | null | undefined;
 };
 
-export function AppSidebar({ user, ...props }: Props) {
+export function AppSidebar({ userID, ...props }: Props) {
   return (
     <Sidebar
       className='top-[--header-height] !h-[calc(100svh-var(--header-height))]'
@@ -105,7 +104,13 @@ export function AppSidebar({ user, ...props }: Props) {
         <NavSecondary items={data.navSecondary.items} className='mt-auto' />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={user} />
+        {userID ? (
+          <React.Suspense fallback={<NavUserLoggedOut />}>
+            <NavUserLoggedIn userID={userID} />
+          </React.Suspense>
+        ) : (
+          <NavUserLoggedOut />
+        )}
       </SidebarFooter>
     </Sidebar>
   );

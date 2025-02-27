@@ -29,12 +29,9 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { logout } from '@/app/(auth)/actions';
-import { ReadonlyUser } from '@/utils/types';
-import { redirect } from 'next/navigation';
-
-type Props = {
-  user?: ReadonlyUser;
-};
+import { useRouter } from 'next/navigation';
+import { graphql } from '@/lib/gql/gql';
+import { useSuspenseQuery } from '@apollo/client';
 
 function getInitials(name: string | undefined | null): string {
   const words = (name ?? 'user').split(' ');
@@ -48,54 +45,84 @@ function getInitials(name: string | undefined | null): string {
   return initials;
 }
 
-export function NavUser({ user }: Props) {
+export function NavUserLoggedOut() {
   const { isMobile } = useSidebar();
+  const router = useRouter();
+
+  return (
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <SidebarMenuButton
+              size='lg'
+              className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
+            >
+              <Avatar className='h-8 w-8 rounded-lg'>
+                <AvatarFallback className='rounded-lg'>U</AvatarFallback>
+              </Avatar>
+              <div className='grid flex-1 text-left text-sm leading-tight'>
+                <span className='truncate font-semibold'>Log In</span>
+                <span className='truncate text-xs'>Log in to explore more</span>
+              </div>
+              <ChevronsUpDown className='ml-auto size-4' />
+            </SidebarMenuButton>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className='w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg'
+            side={isMobile ? 'bottom' : 'right'}
+            align='end'
+            sideOffset={4}
+          >
+            <DropdownMenuItem onClick={() => router.push('/login')}>
+              <LogIn />
+              Log in
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/signup')}>
+              <SquarePen />
+              Sign up
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarMenuItem>
+    </SidebarMenu>
+  );
+}
+
+const query = graphql(`
+  query NavUserLoggedIn($id: UUID) {
+    userCollection(filter: { id: { eq: $id } }) {
+      edges {
+        user: node {
+          full_name
+          email
+        }
+      }
+    }
+  }
+`);
+
+type NavUserLoggedInProps = {
+  userID: string;
+};
+
+export function NavUserLoggedIn({ userID }: NavUserLoggedInProps) {
+  const router = useRouter();
+  const { isMobile } = useSidebar();
+  const { data } = useSuspenseQuery(query, {
+    variables: {
+      id: userID,
+    },
+  });
+
+  const user = data.userCollection?.edges.at(0)?.user;
 
   const goToProfile = () => {
-    redirect('/profile');
+    router.push('/profile');
   };
 
   if (!user) {
-    return (
-      <SidebarMenu>
-        <SidebarMenuItem>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <SidebarMenuButton
-                size='lg'
-                className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
-              >
-                <Avatar className='h-8 w-8 rounded-lg'>
-                  <AvatarFallback className='rounded-lg'>U</AvatarFallback>
-                </Avatar>
-                <div className='grid flex-1 text-left text-sm leading-tight'>
-                  <span className='truncate font-semibold'>Log In</span>
-                  <span className='truncate text-xs'>
-                    Log in to explore more
-                  </span>
-                </div>
-                <ChevronsUpDown className='ml-auto size-4' />
-              </SidebarMenuButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className='w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg'
-              side={isMobile ? 'bottom' : 'right'}
-              align='end'
-              sideOffset={4}
-            >
-              <DropdownMenuItem onClick={() => redirect('/login')}>
-                <LogIn />
-                Log in
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => redirect('/signup')}>
-                <SquarePen />
-                Sign up
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </SidebarMenuItem>
-      </SidebarMenu>
-    );
+    return <NavUserLoggedOut />;
   }
 
   return (

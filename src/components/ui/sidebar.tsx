@@ -10,7 +10,12 @@ import { cn } from '@/lib/ui/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { Sheet, SheetContent } from '@/components/ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+} from '@/components/ui/sheet';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   Tooltip,
@@ -18,6 +23,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { useRouter } from 'next/navigation';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -206,6 +213,10 @@ const Sidebar = React.forwardRef<
             }
             side={side}
           >
+            <VisuallyHidden>
+              <SheetTitle>Menu</SheetTitle>
+              <SheetDescription>Description goes here</SheetDescription>
+            </VisuallyHidden>
             <div className='flex h-full w-full flex-col'>{children}</div>
           </SheetContent>
         </Sheet>
@@ -735,6 +746,22 @@ const SidebarMenuSubButton = React.forwardRef<
 });
 SidebarMenuSubButton.displayName = 'SidebarMenuSubButton';
 
+function useSidebarRoute(): {
+  redirect: (route: string) => void;
+} {
+  const router = useRouter();
+  const { isMobile, setOpenMobile } = useSidebar();
+  const redirect = (route: string) => {
+    // force close the mobile sidebar when redirecting
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+    router.push(route);
+  };
+
+  return { redirect };
+}
+
 export {
   Sidebar,
   SidebarContent,
@@ -760,4 +787,5 @@ export {
   SidebarSeparator,
   SidebarTrigger,
   useSidebar,
+  useSidebarRoute,
 };
