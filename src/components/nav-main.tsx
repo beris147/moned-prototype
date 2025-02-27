@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { ChevronRight, type LucideIcon } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 import {
   Collapsible,
@@ -20,21 +20,10 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
+import { redirect } from 'next/navigation';
+import { NavMainProps } from './types/nav-main-props';
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon: LucideIcon;
-    isActive?: boolean;
-    items?: {
-      title: string;
-      url: string;
-    }[];
-  }[];
-}) {
+export function NavMain({ items }: NavMainProps) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -43,7 +32,12 @@ export function NavMain({
           <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
             <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip={item.title}>
-                <a href={item.url}>
+                <a
+                  href='#'
+                  onClick={() => {
+                    redirect(item.route);
+                  }}
+                >
                   <item.icon />
                   <span>{item.title}</span>
                 </a>
@@ -61,7 +55,7 @@ export function NavMain({
                       {item.items?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild>
-                            <a href={subItem.url}>
+                            <a href='#' onClick={() => redirect(subItem.route)}>
                               <span>{subItem.title}</span>
                             </a>
                           </SidebarMenuSubButton>

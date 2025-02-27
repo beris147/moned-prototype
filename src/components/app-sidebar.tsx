@@ -2,20 +2,14 @@
 
 import * as React from 'react';
 import {
-  BookOpen,
-  Bot,
   Command,
-  Frame,
-  LifeBuoy,
-  Map,
-  PieChart,
-  Send,
+  House,
+  MessageCircle,
   Settings2,
-  SquareTerminal,
+  UserSearch,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
-import { NavProjects } from '@/components/nav-projects';
 import { NavSecondary } from '@/components/nav-secondary';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -28,124 +22,54 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { ReadonlyUser } from '@/utils/types';
+import { NavSecondaryProps } from './types/nav-secondary-props';
+import { NavMainProps } from './types/nav-main-props';
 
-const data = {
-  navMain: [
-    {
-      title: 'Playground',
-      url: '#',
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: 'History',
-          url: '#',
-        },
-        {
-          title: 'Starred',
-          url: '#',
-        },
-        {
-          title: 'Settings',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Models',
-      url: '#',
-      icon: Bot,
-      items: [
-        {
-          title: 'Genesis',
-          url: '#',
-        },
-        {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Documentation',
-      url: '#',
-      icon: BookOpen,
-      items: [
-        {
-          title: 'Introduction',
-          url: '#',
-        },
-        {
-          title: 'Get Started',
-          url: '#',
-        },
-        {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Settings',
-      url: '#',
-      icon: Settings2,
-      items: [
-        {
-          title: 'General',
-          url: '#',
-        },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
-          url: '#',
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: 'Support',
-      url: '#',
-      icon: LifeBuoy,
-    },
-    {
-      title: 'Feedback',
-      url: '#',
-      icon: Send,
-    },
-  ],
-  projects: [
-    {
-      name: 'Design Engineering',
-      url: '#',
-      icon: Frame,
-    },
-    {
-      name: 'Sales & Marketing',
-      url: '#',
-      icon: PieChart,
-    },
-    {
-      name: 'Travel',
-      url: '#',
-      icon: Map,
-    },
-  ],
+type SideBarData = {
+  navMain: NavMainProps;
+  navSecondary: NavSecondaryProps;
+};
+
+const data: SideBarData = {
+  navMain: {
+    items: [
+      {
+        title: 'Home',
+        route: '/home',
+        icon: House,
+      },
+      {
+        title: 'Chat',
+        route: '/chat',
+        icon: MessageCircle,
+      },
+      {
+        title: 'Providers',
+        route: '/providers',
+        icon: UserSearch,
+      },
+      {
+        title: 'Settings',
+        route: '/settings',
+        icon: Settings2,
+        // todo is active needs to depend on the current route
+        isActive: true,
+        items: [
+          {
+            title: 'Profile',
+            route: '/profile',
+          },
+          {
+            title: 'Billing',
+            route: '/billing',
+          },
+        ],
+      },
+    ],
+  },
+  navSecondary: {
+    items: [],
+  },
 };
 
 type Props = {
@@ -168,8 +92,8 @@ export function AppSidebar({ user, ...props }: Props) {
                   <Command className='size-4' />
                 </div>
                 <div className='grid flex-1 text-left text-sm leading-tight'>
-                  <span className='truncate font-semibold'>Acme Inc</span>
-                  <span className='truncate text-xs'>Enterprise</span>
+                  <span className='truncate font-semibold'>Mental Health</span>
+                  <span className='truncate text-xs'>Moned Technologies</span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -177,9 +101,8 @@ export function AppSidebar({ user, ...props }: Props) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
-        <NavSecondary items={data.navSecondary} className='mt-auto' />
+        <NavMain items={data.navMain.items} />
+        <NavSecondary items={data.navSecondary.items} className='mt-auto' />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

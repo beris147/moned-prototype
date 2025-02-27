@@ -1,14 +1,18 @@
 import React from 'react';
 import { isUserLoggedIn } from './(auth)/utils';
 import { redirect } from 'next/navigation';
+import SitePage from '@/components/site-page';
 
 export default async function Home() {
   if (await isUserLoggedIn()) {
-    redirect('/dashboard');
+    redirect('/home');
   }
   return (
-    <div className='grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
-      Hola MonEd!
-    </div>
+    <SitePage>
+      <div>
+        <h1>Home</h1>
+        <p>Welcome to the home page!</p>
+      </div>
+    </SitePage>
   );
 }

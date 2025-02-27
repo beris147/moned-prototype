@@ -10,12 +10,11 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useSidebar } from '@/components/ui/sidebar';
+import { redirect } from 'next/navigation';
 
 export function SiteHeader() {
   const { toggleSidebar } = useSidebar();
@@ -35,13 +34,14 @@ export function SiteHeader() {
         <Breadcrumb className='hidden sm:block'>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href='#'>
-                Building Your Application
+              <BreadcrumbLink
+                href='#'
+                onClick={() => {
+                  redirect('/home');
+                }}
+              >
+                Mental Health App
               </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Data Fetching</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
