@@ -4,10 +4,10 @@ import { ProviderInsertInput, UserUpdateInput } from '@/lib/gql/graphql';
 import React from 'react';
 import { signUpProvider } from '../actions';
 import { useOptimisticForm } from '@/utils/hooks/use-optimistic-form';
-import TextInput from '@/utils/components/text-input';
-import FormButton from '@/utils/components/form-button';
+import TextInput from '@/components/ui/label-input';
 import { useRouter } from 'next/navigation';
 import useToggle from '@/utils/hooks/use-toggle';
+import { Button } from '@/components/ui/button';
 
 type ProviderFormProps = {
   provider: ProviderInsertInput | undefined;
@@ -44,7 +44,9 @@ function ProviderForm({ provider }: ProviderFormProps) {
           name={'degree'}
           disabled={isPending}
         />
-        <FormButton label={'Save'} type='submit' disabled={isPending} />
+        <Button type='submit' disabled={isPending}>
+          Save
+        </Button>
       </form>
     </>
   );
@@ -62,10 +64,9 @@ export default function ProviderSignupForm({ user }: Props) {
       Sign up as a provider!
       <br />
       {showSignup && <ProviderForm provider={{ id: user.id }} />}
-      <FormButton
-        label={showSignup ? 'Nevermind' : 'Sign me up!'}
-        onClick={toggleShowSignup}
-      />
+      <Button onClick={toggleShowSignup}>
+        {showSignup ? 'Nevermind' : 'Sign me up!'}
+      </Button>
     </>
   );
 }

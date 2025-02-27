@@ -5,8 +5,8 @@ import { ProviderUpdateInput } from '@/lib/gql/graphql';
 import { updateProviderData } from '../actions';
 import { useOptimisticForm } from '@/utils/hooks/use-optimistic-form';
 import useToggle from '@/utils/hooks/use-toggle';
-import TextInput from '@/utils/components/text-input';
-import FormButton from '@/utils/components/form-button';
+import LabelInput from '@/components/ui/label-input';
+import { Button } from '@/components/ui/button';
 
 type Props = {
   provider: ProviderUpdateInput;
@@ -33,24 +33,28 @@ export default function ProviderInfoForm({ provider }: Props) {
     <>
       Provider Info <br />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextInput
+        <LabelInput
           label={'Cedula'}
           register={register}
           name={'cedula'}
           disabled={disabled}
         />
-        <TextInput
+        <LabelInput
           label={'Profesional Degree'}
           register={register}
           name={'degree'}
           disabled={disabled}
         />
         {disabled ? (
-          <FormButton onClick={toggleDisabled} label='Edit' type='button' />
+          <Button onClick={toggleDisabled} type='button'>
+            Edit
+          </Button>
         ) : (
           <>
-            <FormButton label={'Cancel'} onClick={onReset} type='reset' />{' '}
-            <FormButton label={'Save'} type='submit' />
+            <Button onClick={onReset} type='reset'>
+              Cancel
+            </Button>
+            <Button type='submit'>Save</Button>
           </>
         )}
       </form>
