@@ -5,6 +5,7 @@ import { graphql } from '@/lib/gql/gql';
 import { redirect } from 'next/navigation';
 import UserInfoForm from '../components/user-info-form';
 import ProviderInfoView from './provider-info-view';
+import { ProviderUpdateInput, UserUpdateInput } from '@/lib/gql/graphql';
 
 const query = graphql(`
   query UserInfo($id: UUID) {
@@ -26,7 +27,16 @@ const query = graphql(`
   }
 `);
 
-export default async function UserInfo({ userID }: { userID: string }) {
+type FetchResponse = {
+  data: {
+    user?: UserUpdateInput | undefined | null;
+    provider?: ProviderUpdateInput | undefined | null;
+  };
+  loading: boolean;
+  error: unknown;
+};
+
+async function fetchData(userID: string): Promise<FetchResponse> {
   const client = await getSSRClient();
   const { data, loading, error } = await client.query({
     query,
@@ -34,14 +44,23 @@ export default async function UserInfo({ userID }: { userID: string }) {
       id: userID,
     },
   });
+  const userData = data.userCollection?.edges.at(0)?.user;
+  const { provider, ...user } = userData || {};
+  return { data: { user, provider }, loading, error };
+}
+
+export default async function UserInfo({ userID }: { userID: string }) {
+  const {
+    data: { user, provider },
+    loading,
+    error,
+  } = await fetchData(userID);
   if (loading) {
     return <>Loading...</>;
   }
-  if (error || !data) {
+  if (error) {
     redirect('/error');
   }
-  const userData = data.userCollection?.edges.at(0)?.user;
-  const { provider, ...user } = userData || {};
 
   return (
     <>

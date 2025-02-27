@@ -2,49 +2,36 @@
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T,
-> = { [_ in K]?: never };
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
-    };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
   /** A high precision floating point value represented as a string */
-  BigFloat: { input: string; output: string };
+  BigFloat: { input: string; output: string; }
   /** An arbitrary size integer represented as a string */
-  BigInt: { input: string; output: string };
+  BigInt: { input: string; output: string; }
   /** An opaque string using for tracking a position in results during pagination */
-  Cursor: { input: any; output: any };
+  Cursor: { input: any; output: any; }
   /** A date without time information */
-  Date: { input: string; output: string };
+  Date: { input: string; output: string; }
   /** A date and time */
-  Datetime: { input: string; output: string };
+  Datetime: { input: string; output: string; }
   /** A Javascript Object Notation value serialized as a string */
-  JSON: { input: string; output: string };
+  JSON: { input: string; output: string; }
   /** Any type not handled by the type system */
-  Opaque: { input: any; output: any };
+  Opaque: { input: any; output: any; }
   /** A time without date information */
-  Time: { input: string; output: string };
+  Time: { input: string; output: string; }
   /** A universally unique identifier */
-  UUID: { input: string; output: string };
+  UUID: { input: string; output: string; }
 };
 
 /** Boolean expression comparing fields on type "BigFloat" */
@@ -148,7 +135,7 @@ export type DatetimeListFilter = {
 
 export enum FilterIs {
   NotNull = 'NOT_NULL',
-  Null = 'NULL',
+  Null = 'NULL'
 }
 
 /** Boolean expression comparing fields on type "Float" */
@@ -239,11 +226,13 @@ export type Mutation = {
   updateuserCollection: UserUpdateResponse;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationDeleteFromadminCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<AdminFilter>;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationDeleteFromappointmentCollectionArgs = {
@@ -251,11 +240,13 @@ export type MutationDeleteFromappointmentCollectionArgs = {
   filter?: InputMaybe<AppointmentFilter>;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationDeleteFrommessagesCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<MessagesFilter>;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationDeleteFromproviderCollectionArgs = {
@@ -263,11 +254,13 @@ export type MutationDeleteFromproviderCollectionArgs = {
   filter?: InputMaybe<ProviderFilter>;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationDeleteFromprovider_AvailabilityCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<Provider_AvailabilityFilter>;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationDeleteFromuserCollectionArgs = {
@@ -275,35 +268,42 @@ export type MutationDeleteFromuserCollectionArgs = {
   filter?: InputMaybe<UserFilter>;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationInsertIntoadminCollectionArgs = {
   objects: Array<AdminInsertInput>;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationInsertIntoappointmentCollectionArgs = {
   objects: Array<AppointmentInsertInput>;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationInsertIntomessagesCollectionArgs = {
   objects: Array<MessagesInsertInput>;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationInsertIntoproviderCollectionArgs = {
   objects: Array<ProviderInsertInput>;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationInsertIntoprovider_AvailabilityCollectionArgs = {
   objects: Array<Provider_AvailabilityInsertInput>;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationInsertIntouserCollectionArgs = {
   objects: Array<UserInsertInput>;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationUpdateadminCollectionArgs = {
@@ -312,12 +312,14 @@ export type MutationUpdateadminCollectionArgs = {
   set: AdminUpdateInput;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationUpdateappointmentCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<AppointmentFilter>;
   set: AppointmentUpdateInput;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationUpdatemessagesCollectionArgs = {
@@ -326,6 +328,7 @@ export type MutationUpdatemessagesCollectionArgs = {
   set: MessagesUpdateInput;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationUpdateproviderCollectionArgs = {
   atMost?: Scalars['Int']['input'];
@@ -333,12 +336,14 @@ export type MutationUpdateproviderCollectionArgs = {
   set: ProviderUpdateInput;
 };
 
+
 /** The root type for creating and mutating data */
 export type MutationUpdateprovider_AvailabilityCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<Provider_AvailabilityFilter>;
   set: Provider_AvailabilityUpdateInput;
 };
+
 
 /** The root type for creating and mutating data */
 export type MutationUpdateuserCollectionArgs = {
@@ -367,7 +372,7 @@ export enum OrderByDirection {
   /** Descending order, nulls first */
   DescNullsFirst = 'DescNullsFirst',
   /** Descending order, nulls last */
-  DescNullsLast = 'DescNullsLast',
+  DescNullsLast = 'DescNullsLast'
 }
 
 export type PageInfo = {
@@ -397,6 +402,7 @@ export type Query = {
   userCollection?: Maybe<UserConnection>;
 };
 
+
 /** The root type for querying data */
 export type QueryAdminCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -407,6 +413,7 @@ export type QueryAdminCollectionArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<AdminOrderBy>>;
 };
+
 
 /** The root type for querying data */
 export type QueryAppointmentCollectionArgs = {
@@ -419,6 +426,7 @@ export type QueryAppointmentCollectionArgs = {
   orderBy?: InputMaybe<Array<AppointmentOrderBy>>;
 };
 
+
 /** The root type for querying data */
 export type QueryMessagesCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -430,10 +438,12 @@ export type QueryMessagesCollectionArgs = {
   orderBy?: InputMaybe<Array<MessagesOrderBy>>;
 };
 
+
 /** The root type for querying data */
 export type QueryNodeArgs = {
   nodeId: Scalars['ID']['input'];
 };
+
 
 /** The root type for querying data */
 export type QueryProviderCollectionArgs = {
@@ -446,6 +456,7 @@ export type QueryProviderCollectionArgs = {
   orderBy?: InputMaybe<Array<ProviderOrderBy>>;
 };
 
+
 /** The root type for querying data */
 export type QueryProvider_AvailabilityCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -456,6 +467,7 @@ export type QueryProvider_AvailabilityCollectionArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<Provider_AvailabilityOrderBy>>;
 };
+
 
 /** The root type for querying data */
 export type QueryUserCollectionArgs = {
@@ -613,7 +625,7 @@ export enum Admin_Account_Status {
   Active = 'active',
   Suspended = 'suspended',
   Test = 'test',
-  Unknown = 'unknown',
+  Unknown = 'unknown'
 }
 
 /** Boolean expression comparing fields on type "admin_account_status" */
@@ -813,6 +825,7 @@ export type Provider = Node & {
   user?: Maybe<User>;
 };
 
+
 export type ProviderAppointmentCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -822,6 +835,7 @@ export type ProviderAppointmentCollectionArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<AppointmentOrderBy>>;
 };
+
 
 export type ProviderProvider_AvailabilityCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -913,7 +927,7 @@ export enum Provider_Account_Status {
   Suspended = 'suspended',
   Test = 'test',
   Unknown = 'unknown',
-  Unverified = 'unverified',
+  Unverified = 'unverified'
 }
 
 /** Boolean expression comparing fields on type "provider_account_status" */
@@ -1022,6 +1036,7 @@ export type User = Node & {
   testing: Scalars['Boolean']['output'];
 };
 
+
 export type UserAppointmentCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -1031,6 +1046,7 @@ export type UserAppointmentCollectionArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<AppointmentOrderBy>>;
 };
+
 
 export type UserMessagesCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -1128,7 +1144,7 @@ export enum Week_Day {
   Sunday = 'sunday',
   Thursday = 'thursday',
   Tuesday = 'tuesday',
-  Wednesday = 'wednesday',
+  Wednesday = 'wednesday'
 }
 
 /** Boolean expression comparing fields on type "week_day" */
@@ -1139,531 +1155,46 @@ export type Week_DayFilter = {
   neq?: InputMaybe<Week_Day>;
 };
 
+export type PrivateSitePageUserQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['UUID']['input']>;
+}>;
+
+
+export type PrivateSitePageUserQuery = { __typename: 'Query', userCollection?: { __typename: 'userConnection', edges: Array<{ __typename: 'userEdge', user: { __typename: 'user', full_name?: string | null, email: string } }> } | null };
+
 export type UpdateUserProfileMutationVariables = Exact<{
   id?: InputMaybe<Scalars['UUID']['input']>;
   userInput: UserUpdateInput;
 }>;
 
-export type UpdateUserProfileMutation = {
-  __typename: 'Mutation';
-  updateuserCollection: {
-    __typename: 'userUpdateResponse';
-    records: Array<{
-      __typename: 'user';
-      id: string;
-      full_name?: string | null;
-      email: string;
-      phone_number?: string | null;
-    }>;
-  };
-};
+
+export type UpdateUserProfileMutation = { __typename: 'Mutation', updateuserCollection: { __typename: 'userUpdateResponse', records: Array<{ __typename: 'user', id: string, full_name?: string | null, email: string, phone_number?: string | null }> } };
 
 export type SignUpProviderMutationVariables = Exact<{
   providerInput: ProviderInsertInput;
 }>;
 
-export type SignUpProviderMutation = {
-  __typename: 'Mutation';
-  insertIntoproviderCollection?: {
-    __typename: 'providerInsertResponse';
-    records: Array<{
-      __typename: 'provider';
-      degree: string;
-      cedula: string;
-      created_at: string;
-      account_status: Provider_Account_Status;
-    }>;
-  } | null;
-};
+
+export type SignUpProviderMutation = { __typename: 'Mutation', insertIntoproviderCollection?: { __typename: 'providerInsertResponse', records: Array<{ __typename: 'provider', degree: string, cedula: string, created_at: string, account_status: Provider_Account_Status }> } | null };
 
 export type UpdateProviderDataMutationVariables = Exact<{
   id?: InputMaybe<Scalars['UUID']['input']>;
   providerInput: ProviderUpdateInput;
 }>;
 
-export type UpdateProviderDataMutation = {
-  __typename: 'Mutation';
-  updateproviderCollection: {
-    __typename: 'providerUpdateResponse';
-    records: Array<{
-      __typename: 'provider';
-      degree: string;
-      cedula: string;
-      created_at: string;
-      account_status: Provider_Account_Status;
-    }>;
-  };
-};
+
+export type UpdateProviderDataMutation = { __typename: 'Mutation', updateproviderCollection: { __typename: 'providerUpdateResponse', records: Array<{ __typename: 'provider', degree: string, cedula: string, created_at: string, account_status: Provider_Account_Status }> } };
 
 export type UserInfoQueryVariables = Exact<{
   id?: InputMaybe<Scalars['UUID']['input']>;
 }>;
 
-export type UserInfoQuery = {
-  __typename: 'Query';
-  userCollection?: {
-    __typename: 'userConnection';
-    edges: Array<{
-      __typename: 'userEdge';
-      user: {
-        __typename: 'user';
-        full_name?: string | null;
-        email: string;
-        phone_number?: string | null;
-        id: string;
-        provider?: {
-          __typename: 'provider';
-          cedula: string;
-          account_status: Provider_Account_Status;
-          degree: string;
-        } | null;
-      };
-    }>;
-  } | null;
-};
 
-export const UpdateUserProfileDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'UpdateUserProfile' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'UUID' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'userInput' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'userUpdateInput' },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'updateuserCollection' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'id' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'eq' },
-                            value: {
-                              kind: 'Variable',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'set' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'userInput' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'records' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: '__typename' },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'full_name' },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'email' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'phone_number' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  UpdateUserProfileMutation,
-  UpdateUserProfileMutationVariables
->;
-export const SignUpProviderDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'SignUpProvider' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'providerInput' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'providerInsertInput' },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'insertIntoproviderCollection' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'objects' },
-                value: {
-                  kind: 'ListValue',
-                  values: [
-                    {
-                      kind: 'Variable',
-                      name: { kind: 'Name', value: 'providerInput' },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'records' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: '__typename' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'degree' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'cedula' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'created_at' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'account_status' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  SignUpProviderMutation,
-  SignUpProviderMutationVariables
->;
-export const UpdateProviderDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'mutation',
-      name: { kind: 'Name', value: 'UpdateProviderData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'UUID' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'providerInput' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'providerUpdateInput' },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'updateproviderCollection' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'id' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'eq' },
-                            value: {
-                              kind: 'Variable',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'set' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'providerInput' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'records' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: '__typename' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'degree' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'cedula' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'created_at' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'account_status' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  UpdateProviderDataMutation,
-  UpdateProviderDataMutationVariables
->;
-export const UserInfoDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'UserInfo' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'UUID' } },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'userCollection' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'filter' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'id' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'eq' },
-                            value: {
-                              kind: 'Variable',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'edges' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: '__typename' },
-                      },
-                      {
-                        kind: 'Field',
-                        alias: { kind: 'Name', value: 'user' },
-                        name: { kind: 'Name', value: 'node' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: '__typename' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'full_name' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'email' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'phone_number' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'provider' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: '__typename' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'cedula' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'account_status',
-                                    },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'degree' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<UserInfoQuery, UserInfoQueryVariables>;
+export type UserInfoQuery = { __typename: 'Query', userCollection?: { __typename: 'userConnection', edges: Array<{ __typename: 'userEdge', user: { __typename: 'user', full_name?: string | null, email: string, phone_number?: string | null, id: string, provider?: { __typename: 'provider', cedula: string, account_status: Provider_Account_Status, degree: string } | null } }> } | null };
+
+
+export const PrivateSitePageUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"PrivateSitePageUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"userCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","alias":{"kind":"Name","value":"user"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"full_name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]}}]} as unknown as DocumentNode<PrivateSitePageUserQuery, PrivateSitePageUserQueryVariables>;
+export const UpdateUserProfileDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserProfile"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"userUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"updateuserCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"full_name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>;
+export const SignUpProviderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SignUpProvider"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"providerInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"providerInsertInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"insertIntoproviderCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"providerInput"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"degree"}},{"kind":"Field","name":{"kind":"Name","value":"cedula"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"account_status"}}]}}]}}]}}]} as unknown as DocumentNode<SignUpProviderMutation, SignUpProviderMutationVariables>;
+export const UpdateProviderDataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateProviderData"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"providerInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"providerUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"updateproviderCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"providerInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"degree"}},{"kind":"Field","name":{"kind":"Name","value":"cedula"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"account_status"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateProviderDataMutation, UpdateProviderDataMutationVariables>;
+export const UserInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"userCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","alias":{"kind":"Name","value":"user"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"full_name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"provider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"cedula"}},{"kind":"Field","name":{"kind":"Name","value":"account_status"}},{"kind":"Field","name":{"kind":"Name","value":"degree"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<UserInfoQuery, UserInfoQueryVariables>;
