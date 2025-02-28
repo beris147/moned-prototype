@@ -15,6 +15,6 @@ export type ReadonlyUser = Readonly<UserUpdateInput>;
 export type UserType = 'non-auth' | 'user' | 'provider' | 'admin';
 
 export type User = {
-  userID?: string;
+  userID: string | null;
   userType: UserType;
 };

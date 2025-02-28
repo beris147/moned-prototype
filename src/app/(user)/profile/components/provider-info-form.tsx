@@ -7,6 +7,7 @@ import { useOptimisticForm } from '@/utils/hooks/use-optimistic-form';
 import useToggle from '@/utils/hooks/use-toggle';
 import LabelInput from '@/components/ui/label-input';
 import { Button } from '@/components/ui/button';
+import Form from '@/components/ui/form';
 
 type Props = {
   provider: ProviderUpdateInput;
@@ -30,34 +31,33 @@ export default function ProviderInfoForm({ provider }: Props) {
   };
 
   return (
-    <>
-      Provider Info <br />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <LabelInput
-          label={'Cedula'}
-          register={register}
-          name={'cedula'}
-          disabled={disabled}
-        />
-        <LabelInput
-          label={'Profesional Degree'}
-          register={register}
-          name={'degree'}
-          disabled={disabled}
-        />
+    <Form onSubmit={handleSubmit(onSubmit)} title={''} description={''}>
+      <LabelInput
+        label={'Cedula'}
+        register={register}
+        name={'cedula'}
+        disabled={disabled}
+      />
+      <LabelInput
+        label={'Profesional Degree'}
+        register={register}
+        name={'degree'}
+        disabled={disabled}
+      />
+      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
         {disabled ? (
           <Button onClick={toggleDisabled} type='button'>
             Edit
           </Button>
         ) : (
           <>
-            <Button onClick={onReset} type='reset'>
+            <Button onClick={onReset} type='reset' variant='outline'>
               Cancel
             </Button>
             <Button type='submit'>Save</Button>
           </>
-        )}
-      </form>
-    </>
+        )}{' '}
+      </div>
+    </Form>
   );
 }

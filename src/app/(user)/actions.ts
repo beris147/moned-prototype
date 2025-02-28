@@ -33,7 +33,7 @@ export async function fetchUserData(): Promise<FetchResponse> {
   const { user: authUser } = await getAuthUser();
   if (!authUser) {
     return {
-      data: { userType: 'non-auth' },
+      data: { userID: null, userType: 'non-auth' },
       loading: false,
     };
   }
@@ -57,7 +57,7 @@ export async function fetchUserData(): Promise<FetchResponse> {
   }
   return {
     data: {
-      userID: userData?.id,
+      userID: userData?.id ?? null,
       userType,
     },
     loading,

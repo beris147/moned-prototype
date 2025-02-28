@@ -23,6 +23,7 @@ const USER_PROFILE_QUERY = graphql(`
             cedula
             account_status
             degree
+            id
           }
         }
       }
