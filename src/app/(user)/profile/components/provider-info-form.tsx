@@ -31,7 +31,13 @@ export default function ProviderInfoForm({ provider }: Props) {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} title={''} description={''}>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      title={'Provider profile'}
+      description={
+        'Thanks for being a provider, here you can update your profesional information'
+      }
+    >
       <LabelInput
         label={'Cedula'}
         register={register}
