@@ -11,3 +11,10 @@ export const removeTypename = (obj: any) => {
 // to transform any user reponse object into a `UserUpdateInput`
 // than to a proper `User`, so let's use it like this
 export type ReadonlyUser = Readonly<UserUpdateInput>;
+
+export type UserType = 'non-auth' | 'user' | 'provider' | 'admin';
+
+export type User = {
+  userID?: string;
+  userType: UserType;
+};

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SitePage from '@/components/site-page';
+import UserPage from '../(user)/components/user-page';
 
 export default function ProvidersPage() {
-  return <SitePage>Providers</SitePage>;
+  return <UserPage>Providers</UserPage>;
 }

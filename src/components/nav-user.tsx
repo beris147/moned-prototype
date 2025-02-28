@@ -32,6 +32,7 @@ import { logout } from '@/app/(auth)/actions';
 import { useRouter } from 'next/navigation';
 import { graphql } from '@/lib/gql/gql';
 import { useSuspenseQuery } from '@apollo/client';
+import { User } from '@/utils/types';
 
 function getInitials(name: string | undefined | null): string {
   const words = (name ?? 'user').split(' ');
@@ -103,15 +104,15 @@ const query = graphql(`
 `);
 
 type NavUserLoggedInProps = {
-  userID: string;
+  user: User;
 };
 
-export function NavUserLoggedIn({ userID }: NavUserLoggedInProps) {
+export function NavUserLoggedIn({ user: userProps }: NavUserLoggedInProps) {
   const router = useRouter();
   const { isMobile } = useSidebar();
   const { data } = useSuspenseQuery(query, {
     variables: {
-      id: userID,
+      id: userProps.userID,
     },
   });
 
