@@ -101,8 +101,12 @@ export function AppSidebar({ user, ...props }: Props) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain.items} />
-        <NavSecondary items={data.navSecondary.items} className='mt-auto' />
+        <NavMain items={data.navMain.items} user={user} />
+        <NavSecondary
+          items={data.navSecondary.items}
+          user={user}
+          className='mt-auto'
+        />
       </SidebarContent>
       <SidebarFooter>
         {user === undefined ? (
