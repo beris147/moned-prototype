@@ -2,8 +2,9 @@
 
 import React from 'react';
 
-import { useSidebarRoute } from './sidebar';
+import { useSidebar } from './sidebar';
 import { useLoading } from '@/utils/hooks/use-loading';
+import NextLink from 'next/link';
 
 type Props = React.PropsWithChildren<{
   href: string;
@@ -11,25 +12,27 @@ type Props = React.PropsWithChildren<{
 }>;
 
 export default function Link({ href, children, className }: Props) {
-  const { redirect } = useSidebarRoute();
+  const { isMobile, setOpenMobile } = useSidebar();
   const { setLoading } = useLoading();
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
     }, 1500);
-    e.preventDefault();
-    redirect(href);
+    if (isMobile) {
+      setOpenMobile(false);
+    }
   };
 
   return (
-    <a
+    <NextLink
+      href={href}
       onClick={handleClick}
       className={className}
       style={{ display: 'flex', alignItems: 'center' }}
     >
       {children}
-    </a>
+    </NextLink>
   );
 }

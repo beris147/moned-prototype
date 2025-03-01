@@ -14,7 +14,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useSidebar } from '@/components/ui/sidebar';
-import { redirect } from 'next/navigation';
 
 export function SiteHeader() {
   const { toggleSidebar } = useSidebar();
@@ -34,14 +33,7 @@ export function SiteHeader() {
         <Breadcrumb className='hidden sm:block'>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink
-                href='#'
-                onClick={() => {
-                  redirect('/home');
-                }}
-              >
-                Mental Health App
-              </BreadcrumbLink>
+              <BreadcrumbLink href='/'>Mental Health App</BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

@@ -25,7 +25,7 @@ export default function PageLoadingWrapper({
           </motion.div>
         )}
       </AnimatePresence>
-      {children}
+      {!loading && children}
     </>
   );
 }
