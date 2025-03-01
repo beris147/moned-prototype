@@ -47,4 +47,35 @@ const AvatarFallback = React.forwardRef<
 ));
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
-export { Avatar, AvatarImage, AvatarFallback };
+function getInitials(name: string | undefined | null): string {
+  const words = (name ?? 'user').split(' ');
+  let initials = '';
+
+  for (const word of words) {
+    if (word.length > 0) {
+      initials += word[0].toUpperCase();
+    }
+  }
+  return initials;
+}
+
+type AvatarTemplateProps = React.PropsWithChildren<{
+  fallbackName: string;
+}>;
+
+const AvatarTemplate = ({ children, fallbackName }: AvatarTemplateProps) => {
+  return (
+    <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
+      <Avatar className='h-8 w-8 rounded-lg'>
+        <AvatarFallback className='rounded-lg'>
+          {getInitials(fallbackName)}
+        </AvatarFallback>
+      </Avatar>
+      <div className='grid flex-1 text-left text-sm leading-tight'>
+        {children}
+      </div>
+    </div>
+  );
+};
+
+export { Avatar, AvatarImage, AvatarFallback, AvatarTemplate };

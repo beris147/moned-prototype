@@ -8,7 +8,7 @@ import {
   ProviderUpdateInput,
   UserUpdateInput,
 } from '@/lib/gql/graphql';
-import { removeTypename } from '@/utils/types';
+import { FetchType, removeTypename } from '@/utils/types';
 
 const USER_PROFILE_QUERY = graphql(`
   query UserProfile($id: UUID) {
@@ -31,16 +31,10 @@ const USER_PROFILE_QUERY = graphql(`
   }
 `);
 
-type FetchResponse = {
-  data: {
-    user?: UserUpdateInput | undefined | null;
-    provider?: ProviderUpdateInput | undefined | null;
-  };
-  loading: boolean;
-  error: unknown;
-};
-
-export async function fetchUserProfile(): Promise<FetchResponse> {
+export async function fetchUserProfile(): FetchType<{
+  user?: UserUpdateInput | undefined | null;
+  provider?: ProviderUpdateInput | undefined | null;
+}> {
   const { user: authUser } = await getAuthUser();
   if (!authUser) {
     return {

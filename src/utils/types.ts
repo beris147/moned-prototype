@@ -18,3 +18,9 @@ export type User = {
   userID: string | null;
   userType: UserType;
 };
+
+export type FetchType<T> = Promise<{
+  data: T;
+  loading: boolean;
+  error?: unknown;
+}>;

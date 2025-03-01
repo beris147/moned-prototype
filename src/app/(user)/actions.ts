@@ -3,7 +3,7 @@
 import { graphql } from '@/lib/gql/gql';
 import { getAuthUser } from '../(auth)/utils';
 import { getSSRClient } from '@/lib/apollo/ssr-client';
-import { User, UserType } from '@/utils/types';
+import { FetchType, User, UserType } from '@/utils/types';
 
 const query = graphql(`
   query UserActions($id: UUID) {
@@ -23,13 +23,7 @@ const query = graphql(`
   }
 `);
 
-type FetchResponse = {
-  data: User;
-  loading: boolean;
-  error?: unknown;
-};
-
-export async function fetchUserData(): Promise<FetchResponse> {
+export async function fetchUserData(): FetchType<User> {
   const { user: authUser } = await getAuthUser();
   if (!authUser) {
     return {
