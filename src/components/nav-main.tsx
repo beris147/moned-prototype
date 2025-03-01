@@ -19,13 +19,12 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  useSidebarRoute,
 } from '@/components/ui/sidebar';
 import { NavMainProps } from './types/nav-main-props';
 import { userHasRouteAccess } from '@/utils/routes';
+import Link from './ui/link';
 
 export function NavMain({ items, user }: NavMainProps) {
-  const { redirect } = useSidebarRoute();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -36,10 +35,10 @@ export function NavMain({ items, user }: NavMainProps) {
             <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild tooltip={item.title}>
-                  <a href='#' onClick={() => redirect(item.route)}>
+                  <Link href={item.route} className='flex items-center space-x'>
                     <item.icon />
                     <span>{item.title}</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
                 {item.items?.length ? (
                   <>
@@ -58,12 +57,9 @@ export function NavMain({ items, user }: NavMainProps) {
                           .map((subItem) => (
                             <SidebarMenuSubItem key={subItem.title}>
                               <SidebarMenuSubButton asChild>
-                                <a
-                                  href='#'
-                                  onClick={() => redirect(subItem.route)}
-                                >
+                                <Link href={subItem.route}>
                                   <span>{subItem.title}</span>
-                                </a>
+                                </Link>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
                           ))}
