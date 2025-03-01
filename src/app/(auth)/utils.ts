@@ -1,6 +1,6 @@
 'use server';
 
-import { createClient } from '@/utils/supabase/server';
+import { createClient } from '@/utils/supabase';
 import { AuthError, User } from '@supabase/supabase-js';
 
 interface AuthUserResponse {
