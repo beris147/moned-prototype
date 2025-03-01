@@ -10,14 +10,7 @@ const PROVIDER_PROFILE_QUERY = graphql(`
     providerCollection(filter: { id: { eq: $id } }) {
       edges {
         node {
-          user {
-            id
-            full_name
-            email
-          }
-          cedula
-          degree
-          id
+          ...ProviderFields
           account_status
         }
       }

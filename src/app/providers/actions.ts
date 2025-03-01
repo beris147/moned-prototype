@@ -10,14 +10,7 @@ const ALL_ACTIVE_PROVIDERS_QUERY = graphql(`
     providerCollection(filter: { account_status: { eq: active } }) {
       edges {
         node {
-          user {
-            id
-            full_name
-            email
-          }
-          cedula
-          degree
-          id
+          ...ProviderFields
         }
       }
     }

@@ -33,7 +33,7 @@ export default function ProviderCard({ provider }: Props) {
           </CardDescription>
           <div className='absolute top-4 right-4 flex space-x-2'>
             <ViewProfileButton providerID={provider.id} />
-            <FollowButton />
+            <FollowButton provider={provider} />
           </div>
         </CardHeader>
         <CardContent className='p-4 space-y-2'>

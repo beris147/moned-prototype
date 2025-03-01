@@ -41,7 +41,9 @@ export default async function Page({
                 </AvatarTemplate>
               </CardTitle>
               <div style={{ textAlign: 'right' }}>
-                {data.provider.account_status === 'active' && <FollowButton />}
+                {data.provider.account_status === 'active' && (
+                  <FollowButton provider={data.provider} />
+                )}
               </div>
             </div>
           </CardHeader>
