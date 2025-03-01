@@ -5,9 +5,9 @@ import { graphql } from '@/lib/gql/gql';
 import { Provider } from '@/lib/gql/graphql';
 import { FetchType } from '@/utils/types';
 
-const ALL_ACTIVE_PROVIDERS_QUERY = graphql(`
-  query AllActiveProviders {
-    providerCollection(filter: { account_status: { eq: active } }) {
+const PROVIDER_PROFILE_QUERY = graphql(`
+  query ProviderProfile($id: UUID!) {
+    providerCollection(filter: { id: { eq: $id } }) {
       edges {
         node {
           user {
@@ -18,19 +18,21 @@ const ALL_ACTIVE_PROVIDERS_QUERY = graphql(`
           cedula
           degree
           id
+          account_status
         }
       }
     }
   }
 `);
 
-export async function fetchAllActiveProviders(): FetchType<{
-  providers: Provider[];
+export async function fetchProviderProfile(id: string): FetchType<{
+  provider: Provider;
 }> {
   const client = await getSSRClient();
 
   const { data, loading, error } = await client.query({
-    query: ALL_ACTIVE_PROVIDERS_QUERY,
+    query: PROVIDER_PROFILE_QUERY,
+    variables: { id },
   });
 
   const providers =
@@ -40,7 +42,7 @@ export async function fetchAllActiveProviders(): FetchType<{
 
   return {
     data: {
-      providers: providers as Provider[],
+      provider: providers.at(0) as Provider,
     },
     loading,
     error,

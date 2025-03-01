@@ -20,6 +20,7 @@ type Documents = {
     "\n  mutation SignUpProvider($providerInput: providerInsertInput!) {\n    insertIntoproviderCollection(objects: [$providerInput]) {\n      records {\n        degree\n        cedula\n        created_at\n        account_status\n      }\n    }\n  }\n": typeof types.SignUpProviderDocument,
     "\n  mutation UpdateProviderData($id: UUID, $providerInput: providerUpdateInput!) {\n    updateproviderCollection(filter: { id: { eq: $id } }, set: $providerInput) {\n      records {\n        degree\n        cedula\n        created_at\n        account_status\n      }\n    }\n  }\n": typeof types.UpdateProviderDataDocument,
     "\n  query AllActiveProviders {\n    providerCollection(filter: { account_status: { eq: active } }) {\n      edges {\n        node {\n          user {\n            id\n            full_name\n            email\n          }\n          cedula\n          degree\n          id\n        }\n      }\n    }\n  }\n": typeof types.AllActiveProvidersDocument,
+    "\n  query ProviderProfile($id: UUID!) {\n    providerCollection(filter: { id: { eq: $id } }) {\n      edges {\n        node {\n          user {\n            id\n            full_name\n            email\n          }\n          cedula\n          degree\n          id\n          account_status\n        }\n      }\n    }\n  }\n": typeof types.ProviderProfileDocument,
     "\n  query NavUserLoggedIn($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n": typeof types.NavUserLoggedInDocument,
 };
 const documents: Documents = {
@@ -29,6 +30,7 @@ const documents: Documents = {
     "\n  mutation SignUpProvider($providerInput: providerInsertInput!) {\n    insertIntoproviderCollection(objects: [$providerInput]) {\n      records {\n        degree\n        cedula\n        created_at\n        account_status\n      }\n    }\n  }\n": types.SignUpProviderDocument,
     "\n  mutation UpdateProviderData($id: UUID, $providerInput: providerUpdateInput!) {\n    updateproviderCollection(filter: { id: { eq: $id } }, set: $providerInput) {\n      records {\n        degree\n        cedula\n        created_at\n        account_status\n      }\n    }\n  }\n": types.UpdateProviderDataDocument,
     "\n  query AllActiveProviders {\n    providerCollection(filter: { account_status: { eq: active } }) {\n      edges {\n        node {\n          user {\n            id\n            full_name\n            email\n          }\n          cedula\n          degree\n          id\n        }\n      }\n    }\n  }\n": types.AllActiveProvidersDocument,
+    "\n  query ProviderProfile($id: UUID!) {\n    providerCollection(filter: { id: { eq: $id } }) {\n      edges {\n        node {\n          user {\n            id\n            full_name\n            email\n          }\n          cedula\n          degree\n          id\n          account_status\n        }\n      }\n    }\n  }\n": types.ProviderProfileDocument,
     "\n  query NavUserLoggedIn($id: UUID) {\n    userCollection(filter: { id: { eq: $id } }) {\n      edges {\n        user: node {\n          full_name\n          email\n        }\n      }\n    }\n  }\n": types.NavUserLoggedInDocument,
 };
 
@@ -70,6 +72,10 @@ export function graphql(source: "\n  mutation UpdateProviderData($id: UUID, $pro
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query AllActiveProviders {\n    providerCollection(filter: { account_status: { eq: active } }) {\n      edges {\n        node {\n          user {\n            id\n            full_name\n            email\n          }\n          cedula\n          degree\n          id\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query AllActiveProviders {\n    providerCollection(filter: { account_status: { eq: active } }) {\n      edges {\n        node {\n          user {\n            id\n            full_name\n            email\n          }\n          cedula\n          degree\n          id\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query ProviderProfile($id: UUID!) {\n    providerCollection(filter: { id: { eq: $id } }) {\n      edges {\n        node {\n          user {\n            id\n            full_name\n            email\n          }\n          cedula\n          degree\n          id\n          account_status\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query ProviderProfile($id: UUID!) {\n    providerCollection(filter: { id: { eq: $id } }) {\n      edges {\n        node {\n          user {\n            id\n            full_name\n            email\n          }\n          cedula\n          degree\n          id\n          account_status\n        }\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -65,15 +65,13 @@ type AvatarTemplateProps = React.PropsWithChildren<{
 
 const AvatarTemplate = ({ children, fallbackName }: AvatarTemplateProps) => {
   return (
-    <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
+    <div className='flex items-center gap-2 px-1 py-1.5 text-left'>
       <Avatar className='h-8 w-8 rounded-lg'>
-        <AvatarFallback className='rounded-lg'>
+        <AvatarFallback className='rounded-lg text-black'>
           {getInitials(fallbackName)}
         </AvatarFallback>
       </Avatar>
-      <div className='grid flex-1 text-left text-sm leading-tight'>
-        {children}
-      </div>
+      <div className='grid flex-1 text-left leading-tight'>{children}</div>
     </div>
   );
 };
