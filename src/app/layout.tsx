@@ -5,6 +5,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { ApolloWrapper } from '@/lib/apollo/wrapper';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body>
         <ApolloWrapper>{children}</ApolloWrapper>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
