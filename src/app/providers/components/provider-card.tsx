@@ -32,9 +32,15 @@ export default function ProviderCard({ provider }: Props) {
             View Profile
           </button>
         </CardHeader>
-        <CardContent className='p-4'>
-          <p className='text-gray-700'>Cedula: {provider.cedula}</p>
-          <p className='text-gray-700 mt-2'>Contact: {provider.user?.email}</p>
+        <CardContent className='p-4 space-y-2'>
+          <div className='flex items-center space-x-2'>
+            <span className='font-semibold text-gray-800'>Cedula:</span>
+            <span className='text-gray-700'>{provider.cedula}</span>
+          </div>
+          <div className='flex items-center space-x-2'>
+            <span className='font-semibold text-gray-800'>Contact:</span>
+            <span className='text-gray-700'>{provider.user?.email}</span>
+          </div>
         </CardContent>
       </div>
       <div className='w-full md:w-1/3 border-t md:border-t-0 md:border-l border-gray-200'>
