@@ -192,8 +192,10 @@ export type Mutation = {
   deleteFromadminCollection: AdminDeleteResponse;
   /** Deletes zero or more records from the `appointment` collection */
   deleteFromappointmentCollection: AppointmentDeleteResponse;
-  /** Deletes zero or more records from the `messages` collection */
-  deleteFrommessagesCollection: MessagesDeleteResponse;
+  /** Deletes zero or more records from the `chat` collection */
+  deleteFromchatCollection: ChatDeleteResponse;
+  /** Deletes zero or more records from the `message` collection */
+  deleteFrommessageCollection: MessageDeleteResponse;
   /** Deletes zero or more records from the `provider` collection */
   deleteFromproviderCollection: ProviderDeleteResponse;
   /** Deletes zero or more records from the `provider_availability` collection */
@@ -209,8 +211,10 @@ export type Mutation = {
   insertIntoadminCollection?: Maybe<AdminInsertResponse>;
   /** Adds one or more `appointment` records to the collection */
   insertIntoappointmentCollection?: Maybe<AppointmentInsertResponse>;
-  /** Adds one or more `messages` records to the collection */
-  insertIntomessagesCollection?: Maybe<MessagesInsertResponse>;
+  /** Adds one or more `chat` records to the collection */
+  insertIntochatCollection?: Maybe<ChatInsertResponse>;
+  /** Adds one or more `message` records to the collection */
+  insertIntomessageCollection?: Maybe<MessageInsertResponse>;
   /** Adds one or more `provider` records to the collection */
   insertIntoproviderCollection?: Maybe<ProviderInsertResponse>;
   /** Adds one or more `provider_availability` records to the collection */
@@ -223,8 +227,10 @@ export type Mutation = {
   updateadminCollection: AdminUpdateResponse;
   /** Updates zero or more records in the `appointment` collection */
   updateappointmentCollection: AppointmentUpdateResponse;
-  /** Updates zero or more records in the `messages` collection */
-  updatemessagesCollection: MessagesUpdateResponse;
+  /** Updates zero or more records in the `chat` collection */
+  updatechatCollection: ChatUpdateResponse;
+  /** Updates zero or more records in the `message` collection */
+  updatemessageCollection: MessageUpdateResponse;
   /** Updates zero or more records in the `provider` collection */
   updateproviderCollection: ProviderUpdateResponse;
   /** Updates zero or more records in the `provider_availability` collection */
@@ -251,9 +257,16 @@ export type MutationDeleteFromappointmentCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
-export type MutationDeleteFrommessagesCollectionArgs = {
+export type MutationDeleteFromchatCollectionArgs = {
   atMost?: Scalars['Int']['input'];
-  filter?: InputMaybe<MessagesFilter>;
+  filter?: InputMaybe<ChatFilter>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFrommessageCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<MessageFilter>;
 };
 
 
@@ -298,8 +311,14 @@ export type MutationInsertIntoappointmentCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
-export type MutationInsertIntomessagesCollectionArgs = {
-  objects: Array<MessagesInsertInput>;
+export type MutationInsertIntochatCollectionArgs = {
+  objects: Array<ChatInsertInput>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationInsertIntomessageCollectionArgs = {
+  objects: Array<MessageInsertInput>;
 };
 
 
@@ -344,10 +363,18 @@ export type MutationUpdateappointmentCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
-export type MutationUpdatemessagesCollectionArgs = {
+export type MutationUpdatechatCollectionArgs = {
   atMost?: Scalars['Int']['input'];
-  filter?: InputMaybe<MessagesFilter>;
-  set: MessagesUpdateInput;
+  filter?: InputMaybe<ChatFilter>;
+  set: ChatUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdatemessageCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<MessageFilter>;
+  set: MessageUpdateInput;
 };
 
 
@@ -420,8 +447,10 @@ export type Query = {
   adminCollection?: Maybe<AdminConnection>;
   /** A pagable collection of type `appointment` */
   appointmentCollection?: Maybe<AppointmentConnection>;
-  /** A pagable collection of type `messages` */
-  messagesCollection?: Maybe<MessagesConnection>;
+  /** A pagable collection of type `chat` */
+  chatCollection?: Maybe<ChatConnection>;
+  /** A pagable collection of type `message` */
+  messageCollection?: Maybe<MessageConnection>;
   /** Retrieve a record by its `ID` */
   node?: Maybe<Node>;
   /** A pagable collection of type `provider` */
@@ -460,14 +489,26 @@ export type QueryAppointmentCollectionArgs = {
 
 
 /** The root type for querying data */
-export type QueryMessagesCollectionArgs = {
+export type QueryChatCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<MessagesFilter>;
+  filter?: InputMaybe<ChatFilter>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<MessagesOrderBy>>;
+  orderBy?: InputMaybe<Array<ChatOrderBy>>;
+};
+
+
+/** The root type for querying data */
+export type QueryMessageCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<MessageFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<MessageOrderBy>>;
 };
 
 
@@ -768,8 +809,111 @@ export type AppointmentUpdateResponse = {
   records: Array<Appointment>;
 };
 
-export type Messages = Node & {
-  __typename?: 'messages';
+export type Chat = Node & {
+  __typename?: 'chat';
+  created_at: Scalars['Datetime']['output'];
+  id: Scalars['UUID']['output'];
+  last_message_at?: Maybe<Scalars['Datetime']['output']>;
+  messageCollection?: Maybe<MessageConnection>;
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID']['output'];
+  user?: Maybe<User>;
+  user1_id: Scalars['UUID']['output'];
+  user2_id: Scalars['UUID']['output'];
+};
+
+
+export type ChatMessageCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<MessageFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<MessageOrderBy>>;
+};
+
+export type ChatConnection = {
+  __typename?: 'chatConnection';
+  edges: Array<ChatEdge>;
+  pageInfo: PageInfo;
+  /** The total number of records matching the `filter` criteria */
+  totalCount: Scalars['Int']['output'];
+};
+
+export type ChatDeleteResponse = {
+  __typename?: 'chatDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Chat>;
+};
+
+export type ChatEdge = {
+  __typename?: 'chatEdge';
+  cursor: Scalars['String']['output'];
+  node: Chat;
+};
+
+export type ChatFilter = {
+  /** Returns true only if all its inner filters are true, otherwise returns false */
+  and?: InputMaybe<Array<ChatFilter>>;
+  created_at?: InputMaybe<DatetimeFilter>;
+  id?: InputMaybe<UuidFilter>;
+  last_message_at?: InputMaybe<DatetimeFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  /** Negates a filter */
+  not?: InputMaybe<ChatFilter>;
+  /** Returns true if at least one of its inner filters is true, otherwise returns false */
+  or?: InputMaybe<Array<ChatFilter>>;
+  user1_id?: InputMaybe<UuidFilter>;
+  user2_id?: InputMaybe<UuidFilter>;
+};
+
+export type ChatInsertInput = {
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  id?: InputMaybe<Scalars['UUID']['input']>;
+  last_message_at?: InputMaybe<Scalars['Datetime']['input']>;
+  user1_id?: InputMaybe<Scalars['UUID']['input']>;
+  user2_id?: InputMaybe<Scalars['UUID']['input']>;
+};
+
+export type ChatInsertResponse = {
+  __typename?: 'chatInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Chat>;
+};
+
+export type ChatOrderBy = {
+  created_at?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  last_message_at?: InputMaybe<OrderByDirection>;
+  user1_id?: InputMaybe<OrderByDirection>;
+  user2_id?: InputMaybe<OrderByDirection>;
+};
+
+export type ChatUpdateInput = {
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  id?: InputMaybe<Scalars['UUID']['input']>;
+  last_message_at?: InputMaybe<Scalars['Datetime']['input']>;
+  user1_id?: InputMaybe<Scalars['UUID']['input']>;
+  user2_id?: InputMaybe<Scalars['UUID']['input']>;
+};
+
+export type ChatUpdateResponse = {
+  __typename?: 'chatUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<Chat>;
+};
+
+export type Message = Node & {
+  __typename?: 'message';
+  chat?: Maybe<Chat>;
+  chat_id: Scalars['UUID']['output'];
   content: Scalars['String']['output'];
   created_at: Scalars['Datetime']['output'];
   from_user_id: Scalars['UUID']['output'];
@@ -780,42 +924,44 @@ export type Messages = Node & {
   user?: Maybe<User>;
 };
 
-export type MessagesConnection = {
-  __typename?: 'messagesConnection';
-  edges: Array<MessagesEdge>;
+export type MessageConnection = {
+  __typename?: 'messageConnection';
+  edges: Array<MessageEdge>;
   pageInfo: PageInfo;
 };
 
-export type MessagesDeleteResponse = {
-  __typename?: 'messagesDeleteResponse';
+export type MessageDeleteResponse = {
+  __typename?: 'messageDeleteResponse';
   /** Count of the records impacted by the mutation */
   affectedCount: Scalars['Int']['output'];
   /** Array of records impacted by the mutation */
-  records: Array<Messages>;
+  records: Array<Message>;
 };
 
-export type MessagesEdge = {
-  __typename?: 'messagesEdge';
+export type MessageEdge = {
+  __typename?: 'messageEdge';
   cursor: Scalars['String']['output'];
-  node: Messages;
+  node: Message;
 };
 
-export type MessagesFilter = {
+export type MessageFilter = {
   /** Returns true only if all its inner filters are true, otherwise returns false */
-  and?: InputMaybe<Array<MessagesFilter>>;
+  and?: InputMaybe<Array<MessageFilter>>;
+  chat_id?: InputMaybe<UuidFilter>;
   content?: InputMaybe<StringFilter>;
   created_at?: InputMaybe<DatetimeFilter>;
   from_user_id?: InputMaybe<UuidFilter>;
   id?: InputMaybe<UuidFilter>;
   nodeId?: InputMaybe<IdFilter>;
   /** Negates a filter */
-  not?: InputMaybe<MessagesFilter>;
+  not?: InputMaybe<MessageFilter>;
   /** Returns true if at least one of its inner filters is true, otherwise returns false */
-  or?: InputMaybe<Array<MessagesFilter>>;
+  or?: InputMaybe<Array<MessageFilter>>;
   to_user_id?: InputMaybe<UuidFilter>;
 };
 
-export type MessagesInsertInput = {
+export type MessageInsertInput = {
+  chat_id?: InputMaybe<Scalars['UUID']['input']>;
   content?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   from_user_id?: InputMaybe<Scalars['UUID']['input']>;
@@ -823,15 +969,16 @@ export type MessagesInsertInput = {
   to_user_id?: InputMaybe<Scalars['UUID']['input']>;
 };
 
-export type MessagesInsertResponse = {
-  __typename?: 'messagesInsertResponse';
+export type MessageInsertResponse = {
+  __typename?: 'messageInsertResponse';
   /** Count of the records impacted by the mutation */
   affectedCount: Scalars['Int']['output'];
   /** Array of records impacted by the mutation */
-  records: Array<Messages>;
+  records: Array<Message>;
 };
 
-export type MessagesOrderBy = {
+export type MessageOrderBy = {
+  chat_id?: InputMaybe<OrderByDirection>;
   content?: InputMaybe<OrderByDirection>;
   created_at?: InputMaybe<OrderByDirection>;
   from_user_id?: InputMaybe<OrderByDirection>;
@@ -839,7 +986,8 @@ export type MessagesOrderBy = {
   to_user_id?: InputMaybe<OrderByDirection>;
 };
 
-export type MessagesUpdateInput = {
+export type MessageUpdateInput = {
+  chat_id?: InputMaybe<Scalars['UUID']['input']>;
   content?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   from_user_id?: InputMaybe<Scalars['UUID']['input']>;
@@ -847,12 +995,12 @@ export type MessagesUpdateInput = {
   to_user_id?: InputMaybe<Scalars['UUID']['input']>;
 };
 
-export type MessagesUpdateResponse = {
-  __typename?: 'messagesUpdateResponse';
+export type MessageUpdateResponse = {
+  __typename?: 'messageUpdateResponse';
   /** Count of the records impacted by the mutation */
   affectedCount: Scalars['Int']['output'];
   /** Array of records impacted by the mutation */
-  records: Array<Messages>;
+  records: Array<Message>;
 };
 
 export type Provider = Node & {
@@ -907,6 +1055,8 @@ export type ProviderConnection = {
   __typename?: 'providerConnection';
   edges: Array<ProviderEdge>;
   pageInfo: PageInfo;
+  /** The total number of records matching the `filter` criteria */
+  totalCount: Scalars['Int']['output'];
 };
 
 export type ProviderDeleteResponse = {
@@ -1080,11 +1230,12 @@ export type User = Node & {
   __typename?: 'user';
   admin?: Maybe<Admin>;
   appointmentCollection?: Maybe<AppointmentConnection>;
+  chatCollection?: Maybe<ChatConnection>;
   created_at: Scalars['Datetime']['output'];
   email: Scalars['String']['output'];
   full_name?: Maybe<Scalars['String']['output']>;
   id: Scalars['UUID']['output'];
-  messagesCollection?: Maybe<MessagesConnection>;
+  messageCollection?: Maybe<MessageConnection>;
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
   phone_number?: Maybe<Scalars['String']['output']>;
@@ -1105,14 +1256,25 @@ export type UserAppointmentCollectionArgs = {
 };
 
 
-export type UserMessagesCollectionArgs = {
+export type UserChatCollectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<MessagesFilter>;
+  filter?: InputMaybe<ChatFilter>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<MessagesOrderBy>>;
+  orderBy?: InputMaybe<Array<ChatOrderBy>>;
+};
+
+
+export type UserMessageCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<MessageFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<MessageOrderBy>>;
 };
 
 
@@ -1308,6 +1470,13 @@ export type UserActionsQueryVariables = Exact<{
 
 export type UserActionsQuery = { __typename: 'Query', userCollection?: { __typename: 'userConnection', edges: Array<{ __typename: 'userEdge', user: { __typename: 'user', id: string, provider?: { __typename: 'provider', id: string } | null, admin?: { __typename: 'admin', id: string } | null } }> } | null };
 
+export type UserChatsQueryVariables = Exact<{
+  userId: Scalars['UUID']['input'];
+}>;
+
+
+export type UserChatsQuery = { __typename: 'Query', chatCollection?: { __typename: 'chatConnection', totalCount: number, edges: Array<{ __typename: 'chatEdge', node: { __typename: 'chat', id: string, user1_id: string, user2_id: string, messageCollection?: { __typename: 'messageConnection', edges: Array<{ __typename: 'messageEdge', node: { __typename: 'message', id: string, content: string, from_user_id: string, to_user_id: string } }> } | null } }> } | null };
+
 export type UserProfileQueryVariables = Exact<{
   id?: InputMaybe<Scalars['UUID']['input']>;
 }>;
@@ -1391,6 +1560,7 @@ export type NavUserLoggedInQuery = { __typename: 'Query', userCollection?: { __t
 
 export const ProviderFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProviderFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"provider"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"full_name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cedula"}},{"kind":"Field","name":{"kind":"Name","value":"degree"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user_provider_followCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"user_id"}},{"kind":"Field","name":{"kind":"Name","value":"provider_id"}}]}}]}}]}}]}}]} as unknown as DocumentNode<ProviderFieldsFragment, unknown>;
 export const UserActionsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserActions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"userCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","alias":{"kind":"Name","value":"user"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"provider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"admin"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<UserActionsQuery, UserActionsQueryVariables>;
+export const UserChatsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserChats"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"chatCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"or"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user1_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]},{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"user2_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}}]}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"last_message_at"},"value":{"kind":"EnumValue","value":"DescNullsLast"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"user1_id"}},{"kind":"Field","name":{"kind":"Name","value":"user2_id"}},{"kind":"Field","name":{"kind":"Name","value":"messageCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"last"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"from_user_id"}},{"kind":"Field","name":{"kind":"Name","value":"to_user_id"}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<UserChatsQuery, UserChatsQueryVariables>;
 export const UserProfileDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserProfile"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"userCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","alias":{"kind":"Name","value":"user"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"full_name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"provider"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"cedula"}},{"kind":"Field","name":{"kind":"Name","value":"account_status"}},{"kind":"Field","name":{"kind":"Name","value":"degree"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<UserProfileQuery, UserProfileQueryVariables>;
 export const UpdateUserProfileDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserProfile"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"userUpdateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"updateuserCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"set"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"full_name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>;
 export const SignUpProviderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SignUpProvider"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"providerInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"providerInsertInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"insertIntoproviderCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ListValue","values":[{"kind":"Variable","name":{"kind":"Name","value":"providerInput"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"Field","name":{"kind":"Name","value":"degree"}},{"kind":"Field","name":{"kind":"Name","value":"cedula"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"account_status"}}]}}]}}]}}]} as unknown as DocumentNode<SignUpProviderMutation, SignUpProviderMutationVariables>;
