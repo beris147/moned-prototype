@@ -817,8 +817,9 @@ export type Chat = Node & {
   messageCollection?: Maybe<MessageConnection>;
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
-  user?: Maybe<User>;
+  user1?: Maybe<User>;
   user1_id: Scalars['UUID']['output'];
+  user2?: Maybe<User>;
   user2_id: Scalars['UUID']['output'];
 };
 
@@ -916,12 +917,13 @@ export type Message = Node & {
   chat_id: Scalars['UUID']['output'];
   content: Scalars['String']['output'];
   created_at: Scalars['Datetime']['output'];
+  from_user?: Maybe<User>;
   from_user_id: Scalars['UUID']['output'];
   id: Scalars['UUID']['output'];
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
+  to_user?: Maybe<User>;
   to_user_id: Scalars['UUID']['output'];
-  user?: Maybe<User>;
 };
 
 export type MessageConnection = {
@@ -1230,12 +1232,14 @@ export type User = Node & {
   __typename?: 'user';
   admin?: Maybe<Admin>;
   appointmentCollection?: Maybe<AppointmentConnection>;
-  chatCollection?: Maybe<ChatConnection>;
+  chat_user1?: Maybe<ChatConnection>;
+  chat_user2?: Maybe<ChatConnection>;
   created_at: Scalars['Datetime']['output'];
   email: Scalars['String']['output'];
   full_name?: Maybe<Scalars['String']['output']>;
   id: Scalars['UUID']['output'];
-  messageCollection?: Maybe<MessageConnection>;
+  messages_from_user?: Maybe<MessageConnection>;
+  messages_to_user?: Maybe<MessageConnection>;
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
   phone_number?: Maybe<Scalars['String']['output']>;
@@ -1256,7 +1260,7 @@ export type UserAppointmentCollectionArgs = {
 };
 
 
-export type UserChatCollectionArgs = {
+export type UserChat_User1Args = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<ChatFilter>;
@@ -1267,7 +1271,29 @@ export type UserChatCollectionArgs = {
 };
 
 
-export type UserMessageCollectionArgs = {
+export type UserChat_User2Args = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<ChatFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ChatOrderBy>>;
+};
+
+
+export type UserMessages_From_UserArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<MessageFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<MessageOrderBy>>;
+};
+
+
+export type UserMessages_To_UserArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<MessageFilter>;

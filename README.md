@@ -96,3 +96,19 @@ npm run codegen
 # or watch with
 npm run codegen-watch
 ```
+
+## Dedup graphql references
+
+When there's a reference to multiple foreign keys from the same schema, the
+graphql api overrides the references into a single one, you need to dedup the
+reference by doing:
+
+```
+comment on constraint chat_user1_id_fkey
+  on public.chat
+  is E'@graphql({"foreign_name": "user1", "local_name": "chat_user1"})';
+
+comment on constraint chat_user2_id_fkey
+  on public.chat
+  is E'@graphql({"foreign_name": "user2", "local_name": "chat_user2"})';
+```
