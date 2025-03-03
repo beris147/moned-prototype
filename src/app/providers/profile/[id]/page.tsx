@@ -20,6 +20,9 @@ export default async function Page({
     redirect('/error');
   }
 
+  const isFollowing =
+    (data.provider.user_provider_followCollection?.edges?.length ?? 0) > 0;
+
   return (
     <UserPage>
       {loading && <Loading />}
@@ -42,7 +45,10 @@ export default async function Page({
               </CardTitle>
               <div style={{ textAlign: 'right' }}>
                 {data.provider.account_status === 'active' && (
-                  <FollowButton provider={data.provider} />
+                  <FollowButton
+                    provider={data.provider}
+                    isFollowing={isFollowing}
+                  />
                 )}
               </div>
             </div>

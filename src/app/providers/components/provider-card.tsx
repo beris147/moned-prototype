@@ -17,6 +17,9 @@ type Props = {
 };
 
 export default function ProviderCard({ provider }: Props) {
+  const isFollowing =
+    (provider.user_provider_followCollection?.edges?.length ?? 0) > 0;
+
   return (
     <Card className='shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row'>
       <div className='w-full md:w-2/3'>
@@ -33,7 +36,7 @@ export default function ProviderCard({ provider }: Props) {
           </CardDescription>
           <div className='absolute top-4 right-4 flex space-x-2'>
             <ViewProfileButton providerID={provider.id} />
-            <FollowButton provider={provider} />
+            <FollowButton provider={provider} isFollowing={isFollowing} />
           </div>
         </CardHeader>
         <CardContent className='p-4 space-y-2'>
