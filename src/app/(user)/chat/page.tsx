@@ -8,7 +8,7 @@ import { redirect } from 'next/navigation';
 
 async function ChatPageInternal() {
   const {
-    data: { chats, totalCount },
+    data: { chats, totalCount, currentUserId },
     error,
   } = await fetchUserChats();
 
@@ -16,7 +16,13 @@ async function ChatPageInternal() {
     redirect('/error');
   }
 
-  return <ChatLayout chats={chats} totalCount={totalCount} />;
+  return (
+    <ChatLayout
+      chats={chats}
+      totalCount={totalCount}
+      currentUserId={currentUserId}
+    />
+  );
 }
 
 export default function ChatPage() {

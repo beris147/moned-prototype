@@ -7,13 +7,19 @@ import { MoreHorizontal, SquarePen } from 'lucide-react';
 import { useIsMobile } from '@/utils/hooks/use-mobile';
 import { Chat } from '@/lib/gql/graphql';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import ChatPreview from './chat-preview';
 
 type Props = {
   chats: Chat[];
   totalCount: number;
+  currentUserId: string;
 };
 
-export default function RecentChats({ chats, totalCount }: Props) {
+export default function RecentChats({
+  chats,
+  totalCount,
+  currentUserId,
+}: Props) {
   const isMobile = useIsMobile();
 
   return (
@@ -41,17 +47,11 @@ export default function RecentChats({ chats, totalCount }: Props) {
       </div>
       <ScrollArea>
         {chats.map((chat) => (
-          <div key={chat.id} className='flex gap-2 items-center p-2'>
-            <div className='flex gap-2 items-center'>
-              <div className='h-9 w-9 rounded-full bg-gray-300' />
-              <div>
-                <p className='font-medium'>{chat.user1_id}</p>
-                <p className='text-xs text-gray-500'>
-                  {chat.messageCollection?.edges?.at(0)?.node.content}
-                </p>
-              </div>
-            </div>
-          </div>
+          <ChatPreview
+            key={chat.id}
+            chat={chat}
+            currentUserId={currentUserId}
+          />
         ))}
       </ScrollArea>
     </aside>
