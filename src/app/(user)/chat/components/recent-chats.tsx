@@ -5,7 +5,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal, SquarePen } from 'lucide-react';
 import { useIsMobile } from '@/utils/hooks/use-mobile';
-import { Chat } from '@/lib/gql/graphql';
+import { Chat, MessageConnection, MessageEdge } from '@/lib/gql/graphql';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import ChatPreview from './chat-preview';
 import { useMessageSubscription } from '@/utils/hooks/use-chat';
@@ -31,6 +31,14 @@ export default function RecentChats({
         const updatedChat = chats[chatIndex];
         if (updatedChat.messageCollection?.edges?.[0]?.node) {
           updatedChat.messageCollection.edges[0].node = message;
+        } else {
+          updatedChat.messageCollection = {
+            edges: [
+              {
+                node: message,
+              } as MessageEdge,
+            ],
+          } as MessageConnection;
         }
         setChats((prev) => {
           const updatedChats = [...prev];
@@ -46,6 +54,13 @@ export default function RecentChats({
           user1_id: message.from_user_id,
           user2_id: message.to_user_id,
           created_at: new Date().toISOString(),
+          messageCollection: {
+            edges: [
+              {
+                node: message,
+              } as MessageEdge,
+            ],
+          } as MessageConnection,
         };
         setChats([...chats, newChat]);
       }
