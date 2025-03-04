@@ -1,4 +1,6 @@
+import { graphql } from '@/lib/gql/gql';
 import { Chat, Message, MessageInsertInput, User } from '@/lib/gql/graphql';
+import { useMutation } from '@apollo/client';
 import { RefObject, useRef, useState } from 'react';
 
 type Props = {
@@ -7,17 +9,46 @@ type Props = {
   emisorUser?: User | undefined;
 };
 
+const SEND_CHAT_MESSAGE_MUTATION = graphql(`
+  mutation SendChatMessage(
+    $chatId: UUID!
+    $from: UUID!
+    $to: UUID!
+    $content: String!
+  ) {
+    insertIntomessageCollection(
+      objects: [
+        {
+          from_user_id: $from
+          to_user_id: $to
+          content: $content
+          chat_id: $chatId
+        }
+      ]
+    ) {
+      records {
+        ...Message
+      }
+    }
+  }
+`);
+
 export function useChat({ chat, receptorUser, emisorUser }: Props): {
   currentMessage: string;
   messages: Message[];
   handleSend: () => void;
   handleInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   inputRef: RefObject<HTMLTextAreaElement | null>;
+  sending: boolean;
 } {
   const [currentMessage, setCurrentMessage] = useState('');
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [messages, setMessages] = useState<Message[]>(
     chat?.messageCollection?.edges.map((edge) => edge.node) ?? []
+  );
+
+  const [sendChatMessageMutation, { loading: sending }] = useMutation(
+    SEND_CHAT_MESSAGE_MUTATION
   );
 
   const sendMessage = (newMessage: MessageInsertInput) => {
@@ -33,6 +64,22 @@ export function useChat({ chat, receptorUser, emisorUser }: Props): {
       from_user_id: newMessage.from_user_id ?? '',
       to_user_id: newMessage.to_user_id ?? '',
     };
+    sendChatMessageMutation({
+      variables: {
+        chatId: newMessage.chat_id ?? '',
+        from: newMessage.from_user_id ?? '',
+        to: newMessage.to_user_id ?? '',
+        content: newMessage.content ?? '',
+      },
+      onError: (error) => {
+        console.error(error);
+        // remove optimistic message
+        setMessages((prev) =>
+          prev.filter((message) => message.id !== optimisticMessage.id)
+        );
+      },
+    });
+
     setMessages((prev) => [...prev, optimisticMessage]);
   };
 
@@ -59,5 +106,6 @@ export function useChat({ chat, receptorUser, emisorUser }: Props): {
     handleSend,
     handleInputChange,
     inputRef,
+    sending,
   };
 }

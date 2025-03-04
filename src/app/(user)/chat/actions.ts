@@ -80,20 +80,10 @@ const CHAT_MESSAGES_QUERY = graphql(`
             id
             full_name
           }
-          messageCollection(orderBy: { created_at: DescNullsLast }) {
+          messageCollection(orderBy: { created_at: AscNullsLast }) {
             edges {
               node {
-                id
-                from_user {
-                  id
-                  full_name
-                }
-                to_user {
-                  id
-                  full_name
-                }
-                content
-                created_at
+                ...Message
               }
             }
           }
