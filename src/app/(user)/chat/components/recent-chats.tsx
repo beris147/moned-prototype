@@ -43,7 +43,7 @@ export default function RecentChats({
         }
         setChats((prev) => [
           updatedChat,
-          ...prev.filter((c) => updatedChat.id !== c.id),
+          ...prev.filter((chat) => updatedChat.id !== chat.id),
         ]);
       } else {
         const newChat: Chat = {
