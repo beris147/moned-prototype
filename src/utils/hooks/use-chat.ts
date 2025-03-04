@@ -1,9 +1,66 @@
 import { graphql } from '@/lib/gql/gql';
 import { Chat, Message, MessageInsertInput, User } from '@/lib/gql/graphql';
 import { useMutation } from '@apollo/client';
-import { RefObject, useRef, useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
+import { createClient } from '../supabase/client';
 
-type Props = {
+type useMessageSubscriptionProps = {
+  chat?: Chat | undefined;
+  onMessage: (message: Message) => void;
+};
+
+export function useMessageSubscription({
+  chat,
+  onMessage,
+}: useMessageSubscriptionProps) {
+  const client = createClient();
+
+  useEffect(() => {
+    // supabase graphql subscription is not supported for now, we can either
+    // implement prisma for the whole project to have a better db management +
+    // subscriptions with strong types. For now we use the raw supabase client
+    // to subscribe to the changes in the message table
+    const messageSubscription = client
+      .channel(chat ? `chat-${chat.id}` : 'all-user-chats')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'message',
+          filter: chat ? `chat_id=eq.${chat.id}` : undefined,
+        },
+        (payload) => {
+          const newMessage: Message = {
+            __typename: 'message',
+            id: payload.new.id,
+            nodeId: payload.new.id,
+            from_user:
+              payload.new.from_user_id === chat?.user1?.id
+                ? chat?.user1
+                : chat?.user2,
+            to_user:
+              payload.new.to_user_id === chat?.user1?.id
+                ? chat?.user1
+                : chat?.user2,
+            created_at: payload.new.created_at,
+            chat_id: payload.new.chat_id,
+            content: payload.new.content,
+            from_user_id: payload.new.from_user_id,
+            to_user_id: payload.new.to_user_id,
+          };
+          onMessage(newMessage);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      messageSubscription.unsubscribe();
+    };
+  }, [client]);
+}
+
+type useChatProps = {
   chat?: Chat | undefined;
   receptorUser?: User | undefined;
   emisorUser?: User | undefined;
@@ -33,7 +90,7 @@ const SEND_CHAT_MESSAGE_MUTATION = graphql(`
   }
 `);
 
-export function useChat({ chat, receptorUser, emisorUser }: Props): {
+export function useChat({ chat, receptorUser, emisorUser }: useChatProps): {
   currentMessage: string;
   messages: Message[];
   handleSend: () => void;
@@ -50,6 +107,15 @@ export function useChat({ chat, receptorUser, emisorUser }: Props): {
   const [sendChatMessageMutation, { loading: sending }] = useMutation(
     SEND_CHAT_MESSAGE_MUTATION
   );
+
+  useMessageSubscription({
+    chat,
+    onMessage: (message) => {
+      if (message.from_user_id === emisorUser?.id) {
+        setMessages((prev) => [...prev, message]);
+      }
+    },
+  });
 
   const sendMessage = (newMessage: MessageInsertInput) => {
     const optimisticMessage: Message = {

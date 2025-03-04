@@ -8,6 +8,7 @@ import { useIsMobile } from '@/utils/hooks/use-mobile';
 import { Chat } from '@/lib/gql/graphql';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import ChatPreview from './chat-preview';
+import { useMessageSubscription } from '@/utils/hooks/use-chat';
 
 type Props = {
   chats: Chat[];
@@ -16,11 +17,51 @@ type Props = {
 };
 
 export default function RecentChats({
-  chats,
+  chats: chatsProps,
   totalCount,
   receptorUserId,
 }: Props) {
   const isMobile = useIsMobile();
+  const [chats, setChats] = React.useState(chatsProps);
+
+  useMessageSubscription({
+    onMessage: (message) => {
+      const chatIndex = chats.findIndex((chat) => chat.id === message.chat_id);
+      if (chatIndex !== -1) {
+        const updatedChat = chats[chatIndex];
+        if (updatedChat.messageCollection?.edges?.[0]?.node) {
+          updatedChat.messageCollection.edges[0].node = message;
+        }
+        setChats((prev) => {
+          const updatedChats = [...prev];
+          updatedChats.splice(chatIndex, 1);
+          updatedChats.unshift(updatedChat);
+          return updatedChats;
+        });
+      } else {
+        const newChat: Chat = {
+          __typename: 'chat',
+          id: message.chat_id,
+          nodeId: message.chat_id,
+          user1_id: message.from_user_id,
+          user2_id: message.to_user_id,
+          created_at: new Date().toISOString(),
+        };
+        setChats((prev) => [newChat, ...prev]);
+      }
+      setChats((prev) =>
+        prev.sort(
+          (a, b) =>
+            new Date(
+              b.messageCollection?.edges?.[0]?.node?.created_at ?? 0
+            ).getTime() -
+            new Date(
+              a.messageCollection?.edges?.[0]?.node?.created_at ?? 0
+            ).getTime()
+        )
+      );
+    },
+  });
 
   return (
     <aside
