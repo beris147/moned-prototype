@@ -16,19 +16,19 @@ type Props = {
   selectedChat?: ChatType | undefined;
   chats: ChatType[];
   totalCount: number;
+  currentUser?: User | undefined;
   receptorUser?: User | undefined;
-  emisorUser?: User | undefined;
 };
 
 export default function Chat({
   selectedChat,
-  emisorUser,
   receptorUser,
+  currentUser,
   ...props
 }: Props) {
   const isMobile = useIsMobile();
   const { currentMessage, messages, handleSend, handleInputChange, inputRef } =
-    useChat({ chat: selectedChat, receptorUser, emisorUser });
+    useChat({ chat: selectedChat, currentUser, receptorUser });
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -50,7 +50,7 @@ export default function Chat({
       }}
     >
       {!isMobile && (
-        <RecentChats {...props} receptorUserId={receptorUser?.id ?? ''} />
+        <RecentChats {...props} currentUserId={currentUser?.id ?? ''} />
       )}
       <main style={{ flex: 1, padding: '1rem' }}>
         <div
@@ -64,8 +64,8 @@ export default function Chat({
           <ScrollArea style={{ flex: 1, maxHeight: '80vh' }}>
             <ChatList
               messages={messages}
-              emisorUser={emisorUser}
               receptorUser={receptorUser}
+              currentUser={currentUser}
               sendMessage={() => {}}
               isMobile={isMobile}
             />

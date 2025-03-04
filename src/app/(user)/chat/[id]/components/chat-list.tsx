@@ -18,16 +18,16 @@ import { useIsMobile } from '@/utils/hooks/use-mobile';
 
 interface ChatListProps {
   messages: Message[];
-  emisorUser: User | undefined;
   receptorUser: User | undefined;
+  currentUser: User | undefined;
   sendMessage: (newMessage: Message) => void;
   isMobile: boolean;
 }
 
-const getMessageVariant = (message: Message, emisorUserId: string) =>
-  message.from_user?.id === emisorUserId ? 'received' : 'sent';
+const getMessageVariant = (message: Message, currentUserId: string) =>
+  message.from_user?.id === currentUserId ? 'sent' : 'received';
 
-export function ChatList({ messages, emisorUser }: ChatListProps) {
+export function ChatList({ messages, currentUser }: ChatListProps) {
   const isMobile = useIsMobile();
   const actionIcons = [
     { icon: MoreHorizontalIcon, type: 'More' },
@@ -40,7 +40,7 @@ export function ChatList({ messages, emisorUser }: ChatListProps) {
       <ChatMessageList>
         <AnimatePresence>
           {messages.map((message, index) => {
-            const variant = getMessageVariant(message, emisorUser?.id ?? '');
+            const variant = getMessageVariant(message, currentUser?.id ?? '');
             return (
               <motion.div
                 key={index}

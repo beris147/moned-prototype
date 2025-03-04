@@ -19,11 +19,7 @@ async function ChatPageInternal() {
   }
 
   return (
-    <ChatLayout
-      chats={chats}
-      totalCount={totalCount}
-      receptorUserId={user.id}
-    />
+    <ChatLayout chats={chats} totalCount={totalCount} currentUserId={user.id} />
   );
 }
 

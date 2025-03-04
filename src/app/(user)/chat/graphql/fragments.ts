@@ -24,3 +24,24 @@ export const MESSAGE_FRAGMENT = graphql(`
     to_user_id
   }
 `);
+
+export const CHAT_FRAGMENT = graphql(`
+  fragment Chat on chat {
+    id
+    user1 {
+      id
+      full_name
+    }
+    user2 {
+      id
+      full_name
+    }
+    messageCollection(orderBy: { created_at: AscNullsLast }) {
+      edges {
+        node {
+          ...Message
+        }
+      }
+    }
+  }
+`);

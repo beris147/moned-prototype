@@ -62,8 +62,8 @@ export function useMessageSubscription({
 
 type useChatProps = {
   chat?: Chat | undefined;
+  currentUser?: User | undefined;
   receptorUser?: User | undefined;
-  emisorUser?: User | undefined;
 };
 
 const SEND_CHAT_MESSAGE_MUTATION = graphql(`
@@ -90,7 +90,7 @@ const SEND_CHAT_MESSAGE_MUTATION = graphql(`
   }
 `);
 
-export function useChat({ chat, receptorUser, emisorUser }: useChatProps): {
+export function useChat({ chat, currentUser, receptorUser }: useChatProps): {
   currentMessage: string;
   messages: Message[];
   handleSend: () => void;
@@ -111,7 +111,7 @@ export function useChat({ chat, receptorUser, emisorUser }: useChatProps): {
   useMessageSubscription({
     chat,
     onMessage: (message) => {
-      if (message.from_user_id === emisorUser?.id) {
+      if (message.from_user_id === receptorUser?.id) {
         setMessages((prev) => [...prev, message]);
       }
     },
@@ -122,8 +122,8 @@ export function useChat({ chat, receptorUser, emisorUser }: useChatProps): {
       __typename: 'message',
       id: Math.random().toString(),
       nodeId: Math.random().toString(),
-      from_user: receptorUser,
-      to_user: emisorUser,
+      from_user: currentUser,
+      to_user: receptorUser,
       created_at: new Date().toISOString(),
       chat_id: newMessage.chat_id ?? '',
       content: newMessage.content ?? '',
@@ -156,10 +156,10 @@ export function useChat({ chat, receptorUser, emisorUser }: useChatProps): {
   const handleSend = () => {
     if (currentMessage.trim()) {
       sendMessage({
-        from_user_id: receptorUser?.id ?? '',
+        from_user_id: currentUser?.id ?? '',
         chat_id: chat?.id ?? '',
         content: currentMessage.trim(),
-        to_user_id: emisorUser?.id ?? '',
+        to_user_id: receptorUser?.id ?? '',
       });
       setCurrentMessage('');
       inputRef.current?.focus();

@@ -3,23 +3,24 @@
 import React from 'react';
 
 import { Button } from '@/components/ui/button';
-import { MoreHorizontal, SquarePen } from 'lucide-react';
+import { MoreHorizontal } from 'lucide-react';
 import { useIsMobile } from '@/utils/hooks/use-mobile';
 import { Chat, MessageConnection, MessageEdge } from '@/lib/gql/graphql';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import ChatPreview from './chat-preview';
 import { useMessageSubscription } from '@/utils/hooks/use-chat';
+import SendMessageDialog from './send-message-dialog';
 
 type Props = {
   chats: Chat[];
   totalCount: number;
-  receptorUserId: string;
+  currentUserId: string;
 };
 
 export default function RecentChats({
   chats: chatsProps,
   totalCount,
-  receptorUserId,
+  currentUserId,
 }: Props) {
   const isMobile = useIsMobile();
   const [chats, setChats] = React.useState(chatsProps);
@@ -96,9 +97,7 @@ export default function RecentChats({
           <Button variant={'ghost'}>
             <MoreHorizontal size={20} />
           </Button>
-          <Button variant={'ghost'}>
-            <SquarePen size={20} />
-          </Button>
+          <SendMessageDialog currentUserId={currentUserId} />
         </div>
       </div>
       <ScrollArea>
@@ -108,7 +107,7 @@ export default function RecentChats({
             style={!isMobile ? { width: '200px' } : { maxWidth: '100%' }}
             className='grid flex-1 text-left text-sm leading-tight'
           >
-            <ChatPreview chat={chat} receptorUserId={receptorUserId} />
+            <ChatPreview chat={chat} currentUserId={currentUserId} />
           </div>
         ))}
       </ScrollArea>

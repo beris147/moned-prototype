@@ -23,15 +23,15 @@ async function SingleChatPageInternal({ id }: { id: string }) {
     redirect('/error');
   }
 
-  let emisorUser = undefined;
   let receptorUser = undefined;
+  let currentUser = undefined;
 
   if (chat?.user1?.id === user?.id) {
-    receptorUser = chat.user1;
-    emisorUser = chat.user2;
+    currentUser = chat.user1;
+    receptorUser = chat.user2;
   } else {
-    emisorUser = chat?.user1;
-    receptorUser = chat?.user2;
+    receptorUser = chat?.user1;
+    currentUser = chat?.user2;
   }
 
   return (
@@ -39,8 +39,8 @@ async function SingleChatPageInternal({ id }: { id: string }) {
       selectedChat={chat}
       chats={chats}
       totalCount={totalCount}
-      emisorUser={emisorUser ?? undefined}
       receptorUser={receptorUser ?? undefined}
+      currentUser={currentUser ?? undefined}
     />
   );
 }

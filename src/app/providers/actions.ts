@@ -5,6 +5,7 @@ import { graphql } from '@/lib/gql/gql';
 import { Provider } from '@/lib/gql/graphql';
 import { FetchType } from '@/utils/types';
 import { GraphQLFormattedError } from 'graphql';
+import { redirect } from 'next/navigation';
 
 const ALL_ACTIVE_PROVIDERS_QUERY = graphql(`
   query AllActiveProviders {
@@ -148,4 +149,49 @@ export async function toggleFollowProvider(
   }
 
   return !isFollowing;
+}
+
+const FOLLOWED_PROVIDERS_QUERY = graphql(`
+  query FollowedProviders($userId: UUID!) {
+    user_provider_followCollection(filter: { user_id: { eq: $userId } }) {
+      edges {
+        node {
+          provider {
+            id
+            user {
+              full_name
+            }
+          }
+        }
+      }
+    }
+  }
+`);
+
+export async function fetchFollowedProviders(
+  userId: string | undefined
+): FetchType<{
+  providers: Provider[];
+}> {
+  if (!userId) {
+    redirect('/login');
+  }
+  const client = await getSSRClient();
+
+  const { data, loading, error } = await client.query({
+    query: FOLLOWED_PROVIDERS_QUERY,
+    variables: { userId },
+  });
+
+  const providers = data.user_provider_followCollection?.edges
+    ?.map((edge) => edge.node.provider)
+    .filter((node) => node !== null) as Provider[];
+
+  return {
+    data: {
+      providers,
+    },
+    loading,
+    error,
+  };
 }
