@@ -9,7 +9,7 @@ import { Chat } from '@/lib/gql/graphql';
 type Props = {
   chats: Chat[];
   totalCount: number;
-  currentUserId: string;
+  receptorUserId: string;
 };
 
 export default function ChatLayout({ ...props }: Props) {

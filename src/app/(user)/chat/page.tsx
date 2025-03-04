@@ -5,14 +5,16 @@ import ChatLayout from './components/chat-layout';
 import Loading from '@/components/ui/loading';
 import { fetchUserChats } from './actions';
 import { redirect } from 'next/navigation';
+import { getAuthUser } from '@/app/(auth)/utils';
 
 async function ChatPageInternal() {
+  const { user } = await getAuthUser();
   const {
-    data: { chats, totalCount, currentUserId },
+    data: { chats, totalCount },
     error,
-  } = await fetchUserChats();
+  } = await fetchUserChats(user?.id);
 
-  if (error) {
+  if (error || !user) {
     redirect('/error');
   }
 
@@ -20,7 +22,7 @@ async function ChatPageInternal() {
     <ChatLayout
       chats={chats}
       totalCount={totalCount}
-      currentUserId={currentUserId}
+      receptorUserId={user.id}
     />
   );
 }

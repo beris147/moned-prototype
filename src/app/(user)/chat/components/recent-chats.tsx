@@ -12,13 +12,13 @@ import ChatPreview from './chat-preview';
 type Props = {
   chats: Chat[];
   totalCount: number;
-  currentUserId: string;
+  receptorUserId: string;
 };
 
 export default function RecentChats({
   chats,
   totalCount,
-  currentUserId,
+  receptorUserId,
 }: Props) {
   const isMobile = useIsMobile();
 
@@ -50,7 +50,7 @@ export default function RecentChats({
           <ChatPreview
             key={chat.id}
             chat={chat}
-            currentUserId={currentUserId}
+            receptorUserId={receptorUserId}
           />
         ))}
       </ScrollArea>

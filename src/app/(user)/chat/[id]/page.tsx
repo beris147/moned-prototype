@@ -1,18 +1,21 @@
 import React, { Suspense } from 'react';
 
-import Loading from '@/components/ui/loading';
 import { redirect } from 'next/navigation';
 import { fetchChatMessages, fetchUserChats } from '../actions';
 import UserPage from '../../components/user-page';
 import Chat from './components/chat';
+import { getAuthUser } from '@/app/(auth)/utils';
 
 async function SingleChatPageInternal({ id }: { id: string }) {
+  const { user } = await getAuthUser();
+  // get all user chats to reder the recent chat lists
   const {
-    data: { chats, totalCount, currentUserId },
+    data: { chats, totalCount },
     error,
-  } = await fetchUserChats();
+  } = await fetchUserChats(user?.id);
+  // get all messages for the selected chat
   const {
-    data: { messages },
+    data: { chat },
     error: error2,
   } = await fetchChatMessages(id);
 
@@ -20,12 +23,24 @@ async function SingleChatPageInternal({ id }: { id: string }) {
     redirect('/error');
   }
 
+  let emisorUser = undefined;
+  let receptorUser = undefined;
+
+  if (chat?.user1?.id === user?.id) {
+    receptorUser = chat.user1;
+    emisorUser = chat.user2;
+  } else {
+    emisorUser = chat?.user1;
+    receptorUser = chat?.user2;
+  }
+
   return (
     <Chat
-      messages={messages}
+      selectedChat={chat}
       chats={chats}
       totalCount={totalCount}
-      currentUserId={currentUserId}
+      emisorUser={emisorUser ?? undefined}
+      receptorUser={receptorUser ?? undefined}
     />
   );
 }
@@ -39,7 +54,7 @@ export default async function SingleChatPage({
 
   return (
     <UserPage>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<Chat chats={[]} totalCount={0} />}>
         <SingleChatPageInternal id={id} />
       </Suspense>
     </UserPage>

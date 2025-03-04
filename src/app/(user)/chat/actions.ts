@@ -1,9 +1,8 @@
 'use server';
 
-import { getAuthUser } from '@/app/(auth)/utils';
 import { getSSRClient } from '@/lib/apollo/ssr-client';
 import { graphql } from '@/lib/gql/gql';
-import { Chat, Message } from '@/lib/gql/graphql';
+import { Chat } from '@/lib/gql/graphql';
 import { FetchType } from '@/utils/types';
 import { redirect } from 'next/navigation';
 
@@ -41,20 +40,18 @@ const USER_CHATS_QUERY = graphql(`
   }
 `);
 
-export async function fetchUserChats(): FetchType<{
+export async function fetchUserChats(userId: string | undefined): FetchType<{
   chats: Chat[];
   totalCount: number;
-  currentUserId: string;
 }> {
-  const { user } = await getAuthUser();
-  if (!user) {
+  if (!userId) {
     redirect('/login');
   }
   const client = await getSSRClient();
   const { data, loading, error } = await client.query({
     query: USER_CHATS_QUERY,
     variables: {
-      userId: user.id,
+      userId,
     },
   });
 
@@ -63,7 +60,6 @@ export async function fetchUserChats(): FetchType<{
       chats:
         (data?.chatCollection?.edges?.map((edge) => edge.node) as Chat[]) || [],
       totalCount: data?.chatCollection?.totalCount || 0,
-      currentUserId: user.id,
     },
     loading,
     error,
@@ -72,16 +68,35 @@ export async function fetchUserChats(): FetchType<{
 
 const CHAT_MESSAGES_QUERY = graphql(`
   query ChatMessages($id: UUID) {
-    messageCollection(
-      filter: { chat_id: { eq: $id } }
-      orderBy: { created_at: DescNullsLast }
-    ) {
+    chatCollection(filter: { id: { eq: $id } }) {
       edges {
         node {
           id
-          content
-          from_user_id
-          to_user_id
+          user1 {
+            id
+            full_name
+          }
+          user2 {
+            id
+            full_name
+          }
+          messageCollection(orderBy: { created_at: DescNullsLast }) {
+            edges {
+              node {
+                id
+                from_user {
+                  id
+                  full_name
+                }
+                to_user {
+                  id
+                  full_name
+                }
+                content
+                created_at
+              }
+            }
+          }
         }
       }
     }
@@ -89,7 +104,7 @@ const CHAT_MESSAGES_QUERY = graphql(`
 `);
 
 export async function fetchChatMessages(id: string): FetchType<{
-  messages: Message[];
+  chat: Chat;
 }> {
   const client = await getSSRClient();
   const { data, loading, error } = await client.query({
@@ -101,10 +116,7 @@ export async function fetchChatMessages(id: string): FetchType<{
 
   return {
     data: {
-      messages:
-        (data?.messageCollection?.edges?.map(
-          (edge) => edge.node
-        ) as Message[]) || [],
+      chat: data?.chatCollection?.edges?.[0]?.node as Chat,
     },
     loading,
     error,

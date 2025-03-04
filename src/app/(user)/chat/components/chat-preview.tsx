@@ -9,11 +9,12 @@ import Link from 'next/link';
 
 type Props = {
   chat: Chat;
-  currentUserId: string;
+  receptorUserId: string;
 };
 
-export default function ChatPreview({ chat, currentUserId }: Props) {
-  const chatUser = chat.user1?.id === currentUserId ? chat.user2 : chat.user1;
+export default function ChatPreview({ chat, receptorUserId }: Props) {
+  const emisorUser =
+    chat.user1?.id === receptorUserId ? chat.user2 : chat.user1;
 
   return (
     <Button
@@ -25,9 +26,11 @@ export default function ChatPreview({ chat, currentUserId }: Props) {
     >
       <Link href={`/chat/${chat.id}`}>
         <div className='flex gap-2 items-center'>
-          <AvatarTemplate fallbackName={chatUser?.full_name ?? 'Unknown'}>
+          <AvatarTemplate fallbackName={emisorUser?.full_name ?? 'Unknown'}>
             <div>
-              <p className='font-medium'>{chatUser?.full_name ?? 'Unknown'}</p>
+              <p className='font-medium'>
+                {emisorUser?.full_name ?? 'Unknown'}
+              </p>
               <p className='text-xs text-gray-500'>
                 {chat.messageCollection?.edges?.at(0)?.node.content}
               </p>
