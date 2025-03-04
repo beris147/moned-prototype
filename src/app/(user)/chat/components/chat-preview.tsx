@@ -27,11 +27,11 @@ export default function ChatPreview({ chat, receptorUserId }: Props) {
       <Link href={`/chat/${chat.id}`}>
         <div className='flex gap-2'>
           <AvatarTemplate fallbackName={emisorUser?.full_name ?? 'Unknown'}>
-            <div>
+            <div className='truncate'>
               <p className='font-medium'>
                 {emisorUser?.full_name ?? 'Unknown'}
               </p>
-              <p className='text-xs text-gray-500'>
+              <p className='text-xs text-gray-500 truncate'>
                 {chat.messageCollection?.edges?.at(0)?.node.content}
               </p>
             </div>
