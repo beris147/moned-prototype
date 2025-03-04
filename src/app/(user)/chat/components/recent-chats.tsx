@@ -27,9 +27,9 @@ export default function RecentChats({
 
   useMessageSubscription({
     onMessage: (message) => {
-      const chatIndex = chats.findIndex((chat) => chat.id === message.chat_id);
-      if (chatIndex !== -1) {
-        const updatedChat = chats[chatIndex];
+      const chatFilter = chats.filter((chat) => chat.id === message.chat_id);
+      if (chatFilter.length > 0) {
+        const updatedChat = chatFilter[0];
         if (updatedChat.messageCollection?.edges?.[0]?.node) {
           updatedChat.messageCollection.edges[0].node = message;
         } else {
@@ -41,12 +41,10 @@ export default function RecentChats({
             ],
           } as MessageConnection;
         }
-        setChats((prev) => {
-          const updatedChats = [...prev];
-          updatedChats.splice(chatIndex, 1);
-          updatedChats.unshift(updatedChat);
-          return updatedChats;
-        });
+        setChats((prev) => [
+          updatedChat,
+          ...prev.filter((c) => updatedChat.id !== c.id),
+        ]);
       } else {
         const newChat: Chat = {
           __typename: 'chat',
@@ -63,7 +61,7 @@ export default function RecentChats({
             ],
           } as MessageConnection,
         };
-        setChats([...chats, newChat]);
+        setChats((prev) => [newChat, ...prev]);
       }
       setChats((prev) =>
         prev.sort(

@@ -12,7 +12,7 @@ const USER_CHATS_QUERY = graphql(`
       filter: {
         or: [{ user1_id: { eq: $userId } }, { user2_id: { eq: $userId } }]
       }
-      orderBy: { last_message_at: AscNullsLast }
+      orderBy: { last_message_at: DescNullsLast }
     ) {
       totalCount
       edges {
