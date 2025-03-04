@@ -19,13 +19,13 @@ export default function ChatPreview({ chat, receptorUserId }: Props) {
   return (
     <Button
       key={chat.id}
-      className='flex gap-2 items-center p-2'
-      style={{ width: '100%', height: 'auto' }}
+      className='flex justify-start gap-2 p-2'
+      style={{ width: 'auto', height: 'auto' }}
       type='button'
-      variant={'outline'}
+      variant='ghost'
     >
       <Link href={`/chat/${chat.id}`}>
-        <div className='flex gap-2 items-center'>
+        <div className='flex gap-2'>
           <AvatarTemplate fallbackName={emisorUser?.full_name ?? 'Unknown'}>
             <div>
               <p className='font-medium'>

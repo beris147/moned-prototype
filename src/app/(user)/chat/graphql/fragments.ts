@@ -20,5 +20,7 @@ export const MESSAGE_FRAGMENT = graphql(`
     }
     content
     created_at
+    from_user_id
+    to_user_id
   }
 `);

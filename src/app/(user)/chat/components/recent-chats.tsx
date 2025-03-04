@@ -47,7 +47,7 @@ export default function RecentChats({
           user2_id: message.to_user_id,
           created_at: new Date().toISOString(),
         };
-        setChats((prev) => [newChat, ...prev]);
+        setChats([...chats, newChat]);
       }
       setChats((prev) =>
         prev.sort(
@@ -88,11 +88,13 @@ export default function RecentChats({
       </div>
       <ScrollArea>
         {chats.map((chat) => (
-          <ChatPreview
+          <div
             key={chat.id}
-            chat={chat}
-            receptorUserId={receptorUserId}
-          />
+            style={!isMobile ? { width: '200px' } : { maxWidth: '100%' }}
+            className='grid flex-1 text-left text-sm leading-tight'
+          >
+            <ChatPreview chat={chat} receptorUserId={receptorUserId} />
+          </div>
         ))}
       </ScrollArea>
     </aside>

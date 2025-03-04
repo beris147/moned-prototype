@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
@@ -12,6 +14,7 @@ import {
   ChatBubbleTimestamp,
 } from '../../components/chat-bubble';
 import { AvatarTemplate } from '@/components/ui/avatar';
+import { useIsMobile } from '@/utils/hooks/use-mobile';
 
 interface ChatListProps {
   messages: Message[];
@@ -25,6 +28,7 @@ const getMessageVariant = (message: Message, emisorUserId: string) =>
   message.from_user?.id === emisorUserId ? 'received' : 'sent';
 
 export function ChatList({ messages, emisorUser }: ChatListProps) {
+  const isMobile = useIsMobile();
   const actionIcons = [
     { icon: MoreHorizontalIcon, type: 'More' },
     { icon: Forward, type: 'Like' },
@@ -56,11 +60,15 @@ export function ChatList({ messages, emisorUser }: ChatListProps) {
                 className='flex flex-col gap-2 p-4'
               >
                 <ChatBubble variant={variant}>
-                  <AvatarTemplate
-                    fallbackName={message.from_user?.full_name ?? 'User'}
-                  />
+                  {!isMobile && (
+                    <AvatarTemplate
+                      fallbackName={message.from_user?.full_name ?? 'User'}
+                    />
+                  )}
                   <ChatBubbleMessage isLoading={false}>
-                    {message.content}
+                    <div className='break-words overflow-hidden'>
+                      {message.content}
+                    </div>
                     {message.created_at && (
                       <ChatBubbleTimestamp timestamp={message.created_at} />
                     )}
