@@ -9,6 +9,7 @@ import {
   UserUpdateInput,
 } from '@/lib/gql/graphql';
 import { FetchType, removeTypename } from '@/utils/types';
+import { revalidatePath } from 'next/cache';
 
 const USER_PROFILE_QUERY = graphql(`
   query UserProfile($id: UUID) {
@@ -119,6 +120,7 @@ export async function signUpProvider(
   if (result.errors) {
     throw new Error(result.errors[0].message);
   }
+  revalidatePath('/profile');
 
   return result.data?.insertIntoproviderCollection?.records.at(0);
 }
