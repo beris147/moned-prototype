@@ -5,6 +5,8 @@ import ChatLayoutClient from './components/chat-layout-client';
 import { getAuthUser } from '@/app/(auth)/utils';
 import { fetchUserChats } from './actions';
 import { redirect } from 'next/navigation';
+import { RecentChatStoreProvider } from '@/utils/hooks/use-recent-chat-store';
+import Loading from '@/components/ui/loading';
 
 async function ChatLayoutInternal({ children }: React.PropsWithChildren) {
   const { user } = await getAuthUser();
@@ -18,13 +20,15 @@ async function ChatLayoutInternal({ children }: React.PropsWithChildren) {
   }
 
   return (
-    <ChatLayoutClient
-      chats={chats}
-      totalCount={totalCount}
-      currentUserId={user.id}
+    <RecentChatStoreProvider
+      initialState={{
+        chats,
+        totalCount,
+        currentUserId: user.id || '',
+      }}
     >
-      {children}
-    </ChatLayoutClient>
+      <ChatLayoutClient>{children}</ChatLayoutClient>
+    </RecentChatStoreProvider>
   );
 }
 
@@ -35,11 +39,7 @@ export default function ChatLayout({
 }>) {
   return (
     <UserPage>
-      <Suspense
-        fallback={
-          <ChatLayoutClient chats={[]} totalCount={0} currentUserId={''} />
-        }
-      >
+      <Suspense fallback={<Loading />}>
         <ChatLayoutInternal>{children}</ChatLayoutInternal>
       </Suspense>
     </UserPage>

@@ -36,7 +36,7 @@ export const CHAT_FRAGMENT = graphql(`
       id
       full_name
     }
-    messageCollection(orderBy: { created_at: AscNullsLast }) {
+    messageCollection(orderBy: { created_at: DescNullsLast }) {
       edges {
         node {
           ...Message
