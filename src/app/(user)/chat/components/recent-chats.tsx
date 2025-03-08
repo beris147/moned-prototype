@@ -17,6 +17,7 @@ export default function RecentChats() {
 
   useMessageSubscription({
     onMessage,
+    channel: `user-${currentUserId}-chats`,
   });
 
   return (

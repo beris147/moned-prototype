@@ -1,6 +1,16 @@
 import React from 'react';
-import Chat from './components/chat';
 
 export default function LoadingChatPage() {
-  return <Chat />;
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+      }}
+    >
+      <p>Loading messages</p>
+    </div>
+  );
 }

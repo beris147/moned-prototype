@@ -5,6 +5,7 @@ import { RefObject, useEffect, useRef, useState } from 'react';
 import { createClient } from '../supabase/client';
 
 type useMessageSubscriptionProps = {
+  channel?: string | null | undefined;
   chat?: Chat | undefined;
   onMessage: (message: Message) => void;
 };
@@ -12,8 +13,13 @@ type useMessageSubscriptionProps = {
 export function useMessageSubscription({
   chat,
   onMessage,
+  channel: channelProps,
 }: useMessageSubscriptionProps) {
   const client = createClient();
+  const channel = channelProps ?? (chat ? `chat-${chat.id}` : null);
+  if (!channel) {
+    throw new Error('Channel is required to subscribe to messages');
+  }
 
   useEffect(() => {
     // supabase graphql subscription is not supported for now, we can either
@@ -21,7 +27,7 @@ export function useMessageSubscription({
     // subscriptions with strong types. For now we use the raw supabase client
     // to subscribe to the changes in the message table
     const messageSubscription = client
-      .channel(chat ? `chat-${chat.id}` : 'all-user-chats')
+      .channel(channel)
       .on(
         'postgres_changes',
         {
@@ -90,7 +96,11 @@ const SEND_CHAT_MESSAGE_MUTATION = graphql(`
   }
 `);
 
-export function useChat({ chat, currentUser, receptorUser }: useChatProps): {
+export function useChat({
+  chat: chatProps,
+  currentUser,
+  receptorUser,
+}: useChatProps): {
   currentMessage: string;
   messages: Message[];
   handleSend: () => void;
@@ -98,10 +108,11 @@ export function useChat({ chat, currentUser, receptorUser }: useChatProps): {
   inputRef: RefObject<HTMLTextAreaElement | null>;
   sending: boolean;
 } {
+  const chatRef = useRef(chatProps);
   const [currentMessage, setCurrentMessage] = useState('');
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [messages, setMessages] = useState<Message[]>(
-    chat?.messageCollection?.edges.map((edge) => edge.node) ?? []
+    chatRef.current?.messageCollection?.edges.map((edge) => edge.node) ?? []
   );
 
   const [sendChatMessageMutation, { loading: sending }] = useMutation(
@@ -109,7 +120,7 @@ export function useChat({ chat, currentUser, receptorUser }: useChatProps): {
   );
 
   useMessageSubscription({
-    chat,
+    chat: chatRef.current,
     onMessage: (message) => {
       if (message.from_user_id === receptorUser?.id) {
         setMessages((prev) => [...prev, message]);
@@ -157,7 +168,7 @@ export function useChat({ chat, currentUser, receptorUser }: useChatProps): {
     if (currentMessage.trim()) {
       sendMessage({
         from_user_id: currentUser?.id ?? '',
-        chat_id: chat?.id ?? '',
+        chat_id: chatRef.current?.id ?? '',
         content: currentMessage.trim(),
         to_user_id: receptorUser?.id ?? '',
       });
