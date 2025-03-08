@@ -7,18 +7,21 @@ import { MoreHorizontal } from 'lucide-react';
 import { useIsMobile } from '@/utils/hooks/use-mobile';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import ChatPreview from './chat-preview';
-import { useMessageSubscription } from '@/utils/hooks/use-chat';
 import SendMessageDialog from './send-message-dialog';
-import { useRecentChatStore } from '@/utils/hooks/use-recent-chat-store';
+import { Chat } from '@/lib/gql/graphql';
 
-export default function RecentChats() {
+type Props = {
+  currentUserId: string;
+  chats: Chat[];
+  totalCount: number;
+};
+
+export default function RecentChats({
+  currentUserId,
+  chats,
+  totalCount,
+}: Props) {
   const isMobile = useIsMobile();
-  const { chats, totalCount, currentUserId, onMessage } = useRecentChatStore();
-
-  useMessageSubscription({
-    onMessage,
-    channel: `user-${currentUserId}-chats`,
-  });
 
   return (
     <aside
