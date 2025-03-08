@@ -5,6 +5,8 @@ import React from 'react';
 import RecentChats from './recent-chats';
 import { useIsMobile } from '@/utils/hooks/use-mobile';
 import { usePathname } from 'next/navigation';
+import { useRecentChatStore } from '@/utils/hooks/use-recent-chat-store';
+import { useMessageSubscription } from '@/utils/hooks/use-chat';
 
 type Props = React.PropsWithChildren;
 
@@ -15,6 +17,12 @@ export default function ChatLayoutClient({ children }: Props) {
   const pathname = usePathname();
   const showRecentChats = !pathname.includes('/chat/') || !isMobile;
   const showChat = pathname.includes('/chat/') || !isMobile;
+  const { chats, totalCount, currentUserId, onMessage } = useRecentChatStore();
+
+  useMessageSubscription({
+    onMessage,
+    channel: `user-${currentUserId}-chats`,
+  });
 
   return (
     <div
@@ -24,7 +32,13 @@ export default function ChatLayoutClient({ children }: Props) {
         flexDirection: isMobile ? 'column' : 'row',
       }}
     >
-      {showRecentChats && <RecentChats />}
+      {showRecentChats && (
+        <RecentChats
+          currentUserId={currentUserId}
+          chats={chats}
+          totalCount={totalCount}
+        />
+      )}
       {showChat && (
         <main style={{ flex: 1, padding: '1rem', height: '100%' }}>
           <div
