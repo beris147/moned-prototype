@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import UserPage from '../components/user-page';
 import ChatLayoutClient from './components/chat-layout-client';
@@ -6,7 +6,6 @@ import { getAuthUser } from '@/app/(auth)/utils';
 import { fetchUserChats } from './actions';
 import { redirect } from 'next/navigation';
 import { RecentChatStoreProvider } from '@/utils/hooks/use-recent-chat-store';
-import Loading from '@/components/ui/loading';
 
 async function ChatLayoutInternal({ children }: React.PropsWithChildren) {
   const { user } = await getAuthUser();
@@ -39,9 +38,7 @@ export default function ChatLayout({
 }>) {
   return (
     <UserPage>
-      <Suspense fallback={<Loading />}>
-        <ChatLayoutInternal>{children}</ChatLayoutInternal>
-      </Suspense>
+      <ChatLayoutInternal>{children}</ChatLayoutInternal>
     </UserPage>
   );
 }

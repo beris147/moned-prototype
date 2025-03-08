@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import { redirect } from 'next/navigation';
 import { fetchChatMessages } from '../actions';
@@ -44,9 +44,5 @@ export default async function SingleChatPage({
 }) {
   const id = (await params).id;
 
-  return (
-    <Suspense fallback={<Chat />}>
-      <SingleChatPageInternal id={id} />
-    </Suspense>
-  );
+  return <SingleChatPageInternal id={id} />;
 }
