@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import Loading from '@/components/ui/loading';
 import { redirect } from 'next/navigation';
 import { fetchUserData } from '../actions';
 import SitePage from '@/components/site-page';
+import { getAuthUser } from '@/app/(auth)/utils';
 
-export default async function UserPage({ children }: React.PropsWithChildren) {
-  const { data, loading, error } = await fetchUserData();
+async function UserPageInternal({ children }: React.PropsWithChildren) {
+  const { user } = await getAuthUser();
+  const { data, loading, error } = await fetchUserData(user?.id);
   if (loading) {
     return <Loading />;
   }
@@ -14,5 +16,16 @@ export default async function UserPage({ children }: React.PropsWithChildren) {
     redirect('/error');
   }
 
+  if (!data) {
+    redirect('/error');
+  }
   return <SitePage user={data}>{children}</SitePage>;
+}
+
+export default function UserPage({ children }: React.PropsWithChildren) {
+  return (
+    <Suspense fallback={<SitePage>{children}</SitePage>}>
+      <UserPageInternal />
+    </Suspense>
+  );
 }
