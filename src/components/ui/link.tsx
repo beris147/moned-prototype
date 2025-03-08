@@ -3,7 +3,6 @@
 import React from 'react';
 
 import { useSidebar } from './sidebar';
-import { useLoading } from '@/utils/hooks/use-loading';
 import NextLink from 'next/link';
 
 type Props = React.PropsWithChildren<{
@@ -13,13 +12,7 @@ type Props = React.PropsWithChildren<{
 
 export default function Link({ href, children, className }: Props) {
   const { isMobile, setOpenMobile } = useSidebar();
-  const { setLoading } = useLoading();
-
   const handleClick = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
     if (isMobile) {
       setOpenMobile(false);
     }
