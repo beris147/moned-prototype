@@ -5,15 +5,10 @@ import React from 'react';
 import RecentChats from './recent-chats';
 import { useIsMobile } from '@/utils/hooks/use-mobile';
 import { usePathname } from 'next/navigation';
-import { Chat } from '@/lib/gql/graphql';
 
-type Props = React.PropsWithChildren<{
-  chats: Chat[];
-  totalCount: number;
-  currentUserId: string;
-}>;
+type Props = React.PropsWithChildren;
 
-export default function ChatLayoutClient({ children, ...props }: Props) {
+export default function ChatLayoutClient({ children }: Props) {
   const isMobile = useIsMobile();
   // if current route is /chat/:id, then hide the sidebar, we will be showing
   // the chat in full screen mode instead
@@ -29,7 +24,7 @@ export default function ChatLayoutClient({ children, ...props }: Props) {
         flexDirection: isMobile ? 'column' : 'row',
       }}
     >
-      {showRecentChats && <RecentChats {...props} />}
+      {showRecentChats && <RecentChats />}
       {showChat && (
         <main style={{ flex: 1, padding: '1rem', height: '100%' }}>
           <div

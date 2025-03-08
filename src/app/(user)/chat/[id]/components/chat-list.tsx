@@ -79,11 +79,6 @@ export function ChatList({ messages, currentUser }: ChatListProps) {
                         className='size-7'
                         key={type}
                         icon={<Icon className='size-4' />}
-                        onClick={() =>
-                          console.log(
-                            'Action ' + type + ' clicked for message ' + index
-                          )
-                        }
                       />
                     ))}
                   </ChatBubbleActionWrapper>

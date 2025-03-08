@@ -5,76 +5,18 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal } from 'lucide-react';
 import { useIsMobile } from '@/utils/hooks/use-mobile';
-import { Chat, MessageConnection, MessageEdge } from '@/lib/gql/graphql';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import ChatPreview from './chat-preview';
 import { useMessageSubscription } from '@/utils/hooks/use-chat';
 import SendMessageDialog from './send-message-dialog';
+import { useRecentChatStore } from '@/utils/hooks/use-recent-chat-store';
 
-type Props = {
-  chats: Chat[];
-  totalCount: number;
-  currentUserId: string;
-};
-
-export default function RecentChats({
-  chats: chatsProps,
-  totalCount,
-  currentUserId,
-}: Props) {
+export default function RecentChats() {
   const isMobile = useIsMobile();
-  const [chats, setChats] = React.useState(chatsProps);
+  const { chats, totalCount, currentUserId, onMessage } = useRecentChatStore();
 
   useMessageSubscription({
-    onMessage: (message) => {
-      const chatFilter = chats.filter((chat) => chat.id === message.chat_id);
-      if (chatFilter.length > 0) {
-        const updatedChat = chatFilter[0];
-        if (updatedChat.messageCollection?.edges?.[0]?.node) {
-          updatedChat.messageCollection.edges[0].node = message;
-        } else {
-          updatedChat.messageCollection = {
-            edges: [
-              {
-                node: message,
-              } as MessageEdge,
-            ],
-          } as MessageConnection;
-        }
-        setChats((prev) => [
-          updatedChat,
-          ...prev.filter((chat) => updatedChat.id !== chat.id),
-        ]);
-      } else {
-        const newChat: Chat = {
-          __typename: 'chat',
-          id: message.chat_id,
-          nodeId: message.chat_id,
-          user1_id: message.from_user_id,
-          user2_id: message.to_user_id,
-          created_at: new Date().toISOString(),
-          messageCollection: {
-            edges: [
-              {
-                node: message,
-              } as MessageEdge,
-            ],
-          } as MessageConnection,
-        };
-        setChats((prev) => [newChat, ...prev]);
-      }
-      setChats((prev) =>
-        prev.sort(
-          (a, b) =>
-            new Date(
-              b.messageCollection?.edges?.[0]?.node?.created_at ?? 0
-            ).getTime() -
-            new Date(
-              a.messageCollection?.edges?.[0]?.node?.created_at ?? 0
-            ).getTime()
-        )
-      );
-    },
+    onMessage,
   });
 
   return (
