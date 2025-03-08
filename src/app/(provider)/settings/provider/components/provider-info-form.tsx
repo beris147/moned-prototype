@@ -2,12 +2,12 @@
 import React from 'react';
 
 import { ProviderUpdateInput } from '@/lib/gql/graphql';
-import { updateProviderData } from '../actions';
 import { useOptimisticForm } from '@/utils/hooks/use-optimistic-form';
 import useToggle from '@/utils/hooks/use-toggle';
 import LabelInput from '@/components/ui/label-input';
 import { Button } from '@/components/ui/button';
 import Form from '@/components/ui/form';
+import { updateProviderData } from '@/app/(provider)/actions';
 
 type Props = {
   provider: ProviderUpdateInput;

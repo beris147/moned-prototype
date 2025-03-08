@@ -8,29 +8,32 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebarRoute,
 } from '@/components/ui/sidebar';
 import { NavSecondaryProps } from './types/nav-secondary-props';
+import Link from './ui/link';
+import { userHasRouteAccess } from '@/utils/routes';
 
 export function NavSecondary({
   items,
+  user,
   ...props
 }: NavSecondaryProps & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
-  const { redirect } = useSidebarRoute();
   return (
     <SidebarGroup {...props}>
       <SidebarGroupContent>
         <SidebarMenu>
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild size='sm'>
-                <a href='#' onClick={() => redirect(item.route)}>
-                  <item.icon />
-                  <span>{item.title}</span>
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+          {items
+            .filter((item) => userHasRouteAccess(user, item.route))
+            .map((item) => (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton asChild size='sm'>
+                  <Link href={item.route}>
+                    <item.icon />
+                    <span>{item.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

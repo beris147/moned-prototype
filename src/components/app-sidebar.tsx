@@ -2,9 +2,14 @@
 
 import * as React from 'react';
 import {
+  CircleHelp,
   Command,
   House,
+  LockKeyhole,
+  Mail,
   MessageCircle,
+  PenLine,
+  ReceiptText,
   Settings2,
   UserSearch,
 } from 'lucide-react';
@@ -57,18 +62,48 @@ const data: SideBarData = {
         items: [
           {
             title: 'Profile',
-            route: '/profile',
+            route: '/settings/profile',
           },
           {
             title: 'Billing',
-            route: '/billing',
+            route: '/settings/billing',
+          },
+          {
+            title: 'Provider Info',
+            route: '/settings/provider',
           },
         ],
       },
     ],
   },
   navSecondary: {
-    items: [],
+    items: [
+      {
+        title: 'FAQs',
+        route: '/faqs',
+        icon: CircleHelp,
+      },
+      {
+        title: 'Privacy Policy',
+        route: '/privacy-policy',
+        icon: LockKeyhole,
+      },
+      {
+        title: 'Terms of Service',
+        route: '/terms-of-service',
+        icon: ReceiptText,
+      },
+      {
+        title: 'Contact Us',
+        route: '/contact-us',
+        icon: Mail,
+      },
+      {
+        title: 'Provider Registration',
+        route: '/provider/signup',
+        icon: PenLine,
+      },
+    ],
   },
 };
 
