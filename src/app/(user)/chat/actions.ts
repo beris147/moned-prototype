@@ -2,7 +2,7 @@
 
 import { getSSRClient } from '@/lib/apollo/ssr-client';
 import { graphql } from '@/lib/gql/gql';
-import { Chat } from '@/lib/gql/graphql';
+import { Chat, MessageConnection } from '@/lib/gql/graphql';
 import { FetchType } from '@/utils/types';
 import { redirect } from 'next/navigation';
 
@@ -89,9 +89,17 @@ export async function fetchChatMessages(id: string): FetchType<{
     },
   });
 
+  const chat = data?.chatCollection?.edges?.[0]?.node as Chat;
+
   return {
     data: {
-      chat: data?.chatCollection?.edges?.[0]?.node as Chat,
+      chat: {
+        ...chat,
+        // reverse the messages order to display from oldest to newest
+        messageCollection: {
+          edges: [...(chat?.messageCollection?.edges || [])].reverse(),
+        } as MessageConnection,
+      },
     },
     loading,
     error,
