@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import { redirect } from 'next/navigation';
 import UserInfoForm from './components/user-info-form';
@@ -24,9 +24,7 @@ async function UserProfilePageInternal() {
 export default function UserProfilePage() {
   return (
     <UserPage>
-      <Suspense fallback={<Loading />}>
-        <UserProfilePageInternal />
-      </Suspense>
+      <UserProfilePageInternal />
     </UserPage>
   );
 }

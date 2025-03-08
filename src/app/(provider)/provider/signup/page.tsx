@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import UserPage from '@/app/(user)/components/user-page';
 import ProviderSignupForm from '@/app/(provider)/provider/signup/components/provider-signup-form';
@@ -25,9 +25,7 @@ async function ProviderSignupPageInternal() {
 export default function ProviderSignupPage() {
   return (
     <UserPage>
-      <Suspense fallback={<p>Loading...</p>}>
-        <ProviderSignupPageInternal />
-      </Suspense>
+      <ProviderSignupPageInternal />
     </UserPage>
   );
 }

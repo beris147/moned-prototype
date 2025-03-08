@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import UserPage from '../(user)/components/user-page';
 import { fetchAllActiveProviders } from './actions';
@@ -23,9 +23,7 @@ async function ProvidersPageInternal() {
 export default async function ProvidersPage() {
   return (
     <UserPage>
-      <Suspense fallback={<Loading />}>
-        <ProvidersPageInternal />
-      </Suspense>
+      <ProvidersPageInternal />
     </UserPage>
   );
 }

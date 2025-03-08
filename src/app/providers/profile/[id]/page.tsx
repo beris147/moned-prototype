@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import UserPage from '@/app/(user)/components/user-page';
 import { fetchProviderProfile } from '../actions';
@@ -26,48 +26,46 @@ export default async function Page({
   return (
     <UserPage>
       {loading && <Loading />}
-      <Suspense fallback={<Loading />}>
-        <Card>
-          <CardHeader>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <CardTitle>
-                <AvatarTemplate
-                  fallbackName={data.provider.user?.full_name ?? ''}
-                >
-                  {data.provider.user?.full_name}
-                </AvatarTemplate>
-              </CardTitle>
-              <div style={{ textAlign: 'right' }}>
-                {data.provider.account_status === 'active' && (
-                  <FollowButton
-                    provider={data.provider}
-                    isFollowing={isFollowing}
-                  />
-                )}
-              </div>
+      <Card>
+        <CardHeader>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <CardTitle>
+              <AvatarTemplate
+                fallbackName={data.provider.user?.full_name ?? ''}
+              >
+                {data.provider.user?.full_name}
+              </AvatarTemplate>
+            </CardTitle>
+            <div style={{ textAlign: 'right' }}>
+              {data.provider.account_status === 'active' && (
+                <FollowButton
+                  provider={data.provider}
+                  isFollowing={isFollowing}
+                />
+              )}
             </div>
-          </CardHeader>
-          <CardContent>
-            <div>
-              <p>
-                <strong>Provider Degree:</strong> {data.provider.degree}
-              </p>
-              <p>
-                <strong>Provider Cedula:</strong> {data.provider.cedula}
-              </p>
-            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div>
             <p>
-              <strong>Provider Email:</strong> {data.provider.user?.email}
+              <strong>Provider Degree:</strong> {data.provider.degree}
             </p>
-          </CardContent>
-        </Card>
-      </Suspense>
+            <p>
+              <strong>Provider Cedula:</strong> {data.provider.cedula}
+            </p>
+          </div>
+          <p>
+            <strong>Provider Email:</strong> {data.provider.user?.email}
+          </p>
+        </CardContent>
+      </Card>
     </UserPage>
   );
 }

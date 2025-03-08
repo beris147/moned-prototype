@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import UserPage from '@/app/(user)/components/user-page';
 import { fetchUserProfile } from '@/app/(user)/settings/profile/actions';
@@ -25,9 +25,7 @@ async function ProviderSettingsPageInternal() {
 export default function ProviderSettingsPage() {
   return (
     <UserPage>
-      <Suspense fallback={<p>Loading...</p>}>
-        <ProviderSettingsPageInternal />
-      </Suspense>
+      <ProviderSettingsPageInternal />
     </UserPage>
   );
 }
