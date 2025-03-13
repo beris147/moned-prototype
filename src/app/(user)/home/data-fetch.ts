@@ -1,4 +1,4 @@
-'use server';
+import 'server-only';
 
 import { FetchType } from '@/utils/types';
 import { activities, Activity, Appointment, appointments } from './utils/data';

@@ -1,55 +1,9 @@
 'use server';
 
-import { getAuthUser } from '@/app/(auth)/utils';
 import { getSSRClient } from '@/lib/apollo/ssr-client';
 import { graphql } from '@/lib/gql/gql';
-import { ProviderUpdateInput, UserUpdateInput } from '@/lib/gql/graphql';
-import { FetchType, removeTypename } from '@/utils/types';
-
-const USER_PROFILE_QUERY = graphql(`
-  query UserProfile($id: UUID) {
-    userCollection(filter: { id: { eq: $id } }) {
-      edges {
-        user: node {
-          full_name
-          email
-          phone_number
-          id
-          provider {
-            cedula
-            account_status
-            degree
-            id
-          }
-        }
-      }
-    }
-  }
-`);
-
-export async function fetchUserProfile(): FetchType<{
-  user?: UserUpdateInput | undefined | null;
-  provider?: ProviderUpdateInput | undefined | null;
-}> {
-  const { user: authUser } = await getAuthUser();
-  if (!authUser) {
-    return {
-      data: {},
-      loading: false,
-      error: new Error('User is not logged in'),
-    };
-  }
-  const client = await getSSRClient();
-  const { data, loading, error } = await client.query({
-    query: USER_PROFILE_QUERY,
-    variables: {
-      id: authUser.id,
-    },
-  });
-  const userData = data.userCollection?.edges.at(0)?.user;
-  const { provider, ...user } = userData || {};
-  return { data: { user, provider }, loading, error };
-}
+import { UserUpdateInput } from '@/lib/gql/graphql';
+import { removeTypename } from '@/utils/types';
 
 const UPDATE_USER_DATA_MUTATION = graphql(`
   mutation UpdateUserProfile($id: UUID, $userInput: userUpdateInput!) {
