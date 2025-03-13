@@ -4,7 +4,7 @@ import { parseISO } from 'date-fns';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import FeedContent from './user-feed-content';
 import { Activity, Appointment, groupItemsByDate } from '../utils/data';
-import { fetchUserActivities, fetchUserAppointments } from '../actions';
+import { fetchUserActivities, fetchUserAppointments } from '../data-fetch';
 import { getAuthUser } from '@/app/(auth)/utils';
 
 // Combine and sort all items by date

@@ -7,10 +7,16 @@ import { useIsMobile } from '@/utils/hooks/use-mobile';
 import { usePathname } from 'next/navigation';
 import { useRecentChatStore } from '@/utils/hooks/use-recent-chat-store';
 import { useMessageSubscription } from '@/utils/hooks/use-chat';
+import { Provider } from '@/lib/gql/graphql';
 
-type Props = React.PropsWithChildren;
+type Props = React.PropsWithChildren<{
+  followedProviders: Provider[];
+}>;
 
-export default function ChatLayoutClient({ children }: Props) {
+export default function ChatLayoutClient({
+  children,
+  followedProviders,
+}: Props) {
   const isMobile = useIsMobile();
   // if current route is /chat/:id, then hide the sidebar, we will be showing
   // the chat in full screen mode instead
@@ -37,6 +43,7 @@ export default function ChatLayoutClient({ children }: Props) {
           currentUserId={currentUserId}
           chats={chats}
           totalCount={totalCount}
+          followedProviders={followedProviders}
         />
       )}
       {showChat && (

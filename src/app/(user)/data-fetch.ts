@@ -1,27 +1,9 @@
-'use server';
+import 'server-only';
 
-import { graphql } from '@/lib/gql/gql';
 import { getSSRClient } from '@/lib/apollo/ssr-client';
 import { FetchType, User, UserType } from '@/utils/types';
 import { unstable_cache } from 'next/cache';
-
-const query = graphql(`
-  query UserActions($id: UUID) {
-    userCollection(filter: { id: { eq: $id } }) {
-      edges {
-        user: node {
-          id
-          provider {
-            id
-          }
-          admin {
-            id
-          }
-        }
-      }
-    }
-  }
-`);
+import { USER_DATA_QUERY } from './graphql/queries';
 
 export async function fetchUserData(
   userId: string | null | undefined
@@ -44,7 +26,7 @@ export async function fetchUserData(
       }
 
       const { data, loading, error } = await client.query({
-        query,
+        query: USER_DATA_QUERY,
         variables: {
           id: userId,
         },

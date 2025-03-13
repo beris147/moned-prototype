@@ -1,5 +1,7 @@
 'use client';
 
+import React from 'react';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,7 +14,6 @@ import {
 } from '@/components/ui/dialog';
 import { Provider } from '@/lib/gql/graphql';
 import { Check, ChevronsUpDown, SquarePen } from 'lucide-react';
-import React, { useEffect } from 'react';
 import {
   Popover,
   PopoverContent,
@@ -27,28 +28,20 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { cn } from '@/lib/ui/utils';
-import { fetchFollowedProviders } from '@/app/providers/actions';
 import { startChat } from '../actions';
 
 type Props = {
   currentUserId: string;
+  followedProviders: Provider[];
 };
 
-export default function SendMessageDialog({ currentUserId }: Props) {
+export default function SendMessageDialog({
+  currentUserId,
+  followedProviders,
+}: Props) {
   const [open, setOpen] = React.useState(false);
   const [selectedProvider, setSelectedProvider] =
     React.useState<Provider | null>(null);
-  const [followedProviders, setFollowedProviders] = React.useState<Provider[]>(
-    []
-  );
-  useEffect(() => {
-    if (!currentUserId) {
-      return;
-    }
-    fetchFollowedProviders(currentUserId).then((response) => {
-      setFollowedProviders(response.data.providers);
-    });
-  }, [currentUserId]);
 
   const handleStartChat = async () => {
     if (!selectedProvider) {

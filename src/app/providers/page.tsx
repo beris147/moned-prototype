@@ -1,10 +1,10 @@
 import React from 'react';
 
 import UserPage from '../(user)/components/user-page';
-import { fetchAllActiveProviders } from './actions';
 import Loading from '@/components/ui/loading';
 import { redirect } from 'next/navigation';
 import ProviderCard from './components/provider-card';
+import { fetchAllActiveProviders } from './data-fetch';
 
 async function ProvidersPageInternal() {
   const { data, loading, error } = await fetchAllActiveProviders();

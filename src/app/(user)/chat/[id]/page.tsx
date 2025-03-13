@@ -1,11 +1,16 @@
 import React from 'react';
 
 import { redirect } from 'next/navigation';
-import { fetchChatMessages } from '../actions';
 import Chat from './components/chat';
 import { getAuthUser } from '@/app/(auth)/utils';
+import { fetchChatMessages } from '../data-fetch';
 
-async function SingleChatPageInternal({ id }: { id: string }) {
+export default async function SingleChatPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const id = (await params).id;
   const { user } = await getAuthUser();
   // get all messages for the selected chat
   const {
@@ -35,14 +40,4 @@ async function SingleChatPageInternal({ id }: { id: string }) {
       currentUser={currentUser ?? undefined}
     />
   );
-}
-
-export default async function SingleChatPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const id = (await params).id;
-
-  return <SingleChatPageInternal id={id} />;
 }

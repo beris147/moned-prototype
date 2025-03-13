@@ -8,18 +8,20 @@ import { useIsMobile } from '@/utils/hooks/use-mobile';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import ChatPreview from './chat-preview';
 import SendMessageDialog from './send-message-dialog';
-import { Chat } from '@/lib/gql/graphql';
+import { Chat, Provider } from '@/lib/gql/graphql';
 
 type Props = {
   currentUserId: string;
   chats: Chat[];
   totalCount: number;
+  followedProviders: Provider[];
 };
 
 export default function RecentChats({
   currentUserId,
   chats,
   totalCount,
+  followedProviders,
 }: Props) {
   const isMobile = useIsMobile();
 
@@ -41,7 +43,10 @@ export default function RecentChats({
           <Button variant={'ghost'}>
             <MoreHorizontal size={20} />
           </Button>
-          <SendMessageDialog currentUserId={currentUserId} />
+          <SendMessageDialog
+            currentUserId={currentUserId}
+            followedProviders={followedProviders}
+          />
         </div>
       </div>
       <ScrollArea>
