@@ -1,0 +1,32 @@
+services:
+  mindfulcare:
+    build:
+      context: ../..
+      dockerfile: docker/web/Dockerfile.dev
+    env_file:
+      - ../../.env.local
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ../../src:/app/src  # Sync the src directory
+      - /app/node_modules  # Avoid overwriting node_modules in the container
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./package.json
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mindfulcare.rule=Host(`beristain.moned.cloud`)"
+      - "traefik.http.routers.mindfulcare.entrypoints=websecure"
+      - "traefik.http.routers.mindfulcare.tls.certresolver=myresolver"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true

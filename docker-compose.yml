@@ -1,20 +1,6 @@
-services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    ports:
-      - "3000:3000"
-    env_file:
-      - .env.local
-    environment:
-      NODE_ENV: development
-    develop:
-      watch:
-        - action: sync
-          path: ./src
-          target: /app/src
-          ignore:
-            - node_modules/
-        - action: rebuild
-          path: ./package.json
+include:
+  - docker/traefik/docker-compose.yml
+  - docker/web/docker-compose.yml
+
+volumes:
+  letsencrypt:
